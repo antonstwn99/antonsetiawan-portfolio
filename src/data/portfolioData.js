@@ -1,0 +1,261 @@
+// ============================================================
+// GLOBAL STATE & DATA
+// ============================================================
+
+export const PROJECT_DATABASE = [
+  {
+    id: 1,
+    title: 'Creatone.id',
+    category: 'Digital Branding',
+    year: '2026',
+    featured: true,
+    tools: ['Branding', 'Content Strategy', 'Canva', 'Social Media'],
+    description:
+      'Platform dan inisiatif branding kreatif yang berfokus pada strategi media sosial, pembuatan konten, dan identitas visual perusahaan.',
+  },
+  {
+    id: 2,
+    title: 'Viska Labs Indonesia',
+    category: 'Website',
+    year: '2026',
+    featured: true,
+    tools: ['Web Dev', 'React', 'HTML/CSS', 'JavaScript'],
+    description:
+      'Pembuatan website resmi untuk Viska Labs Indonesia, berfokus pada inovasi teknologi dan layanan digital terdepan.',
+  },
+  {
+    id: 3,
+    title: 'Kita Atur',
+    category: 'Aplikasi',
+    year: '2026',
+    featured: true,
+    tools: ['UI/UX', 'System Design', 'Figma', 'App Dev'],
+    description:
+      'Aplikasi sistem yang dirancang untuk mempermudah pengaturan administrasi, tugas, dan workflow pengguna secara digital.',
+  },
+  {
+    id: 4,
+    title: 'Stokin Aja',
+    category: 'Aplikasi',
+    year: '2026',
+    featured: true,
+    tools: ['Figma', 'App Design', 'Data Management'],
+    description:
+      'Aplikasi inovatif yang dirancang untuk mengelola dan mengatur manajemen data stok/pengguna dengan lebih efisien.',
+  },
+  {
+    id: 5,
+    title: 'Website HIMA TRM',
+    category: 'Website',
+    year: '2026',
+    featured: true,
+    tools: ['Web Design', 'Frontend', 'Management'],
+    description:
+      'Pengembangan platform website utama untuk Himpunan Mahasiswa Teknologi Rekayasa Multimedia Politeknik Hasnur.',
+  },
+  {
+    id: 6,
+    title: 'Website BEM Polhas',
+    category: 'Website',
+    year: '2026',
+    featured: true,
+    tools: ['UI/UX', 'HTML/CSS', 'Javascript'],
+    description:
+      'Portal informasi resmi untuk Badan Eksekutif Mahasiswa Politeknik Hasnur yang memfasilitasi komunikasi kampus.',
+  },
+  {
+    id: 7,
+    title: 'Warung Tycoon',
+    category: 'Game 2D',
+    year: '2025',
+    featured: true,
+    tools: ['Unity', 'Game Design', 'C#'],
+    description:
+      'Game simulasi 2D interaktif yang mengajak pemain untuk mengelola dan mengembangkan bisnis warung.',
+  },
+  {
+    id: 8,
+    title: 'Darurat Nalar',
+    category: 'Video Pendek',
+    year: '2026',
+    featured: true,
+    tools: ['Video Director', 'CapCut', 'DaVinci Resolve'],
+    description:
+      'Proyek video pendek sinematik edukatif yang berfokus pada penguatan literasi dan nalar kritis masyarakat.',
+  },
+  {
+    id: 9,
+    title: 'TRM Photoverse',
+    category: 'Website',
+    year: '2025',
+    featured: false,
+    tools: ['Web Design', 'Frontend'],
+    description:
+      'Platform galeri digital interaktif untuk menaungi karya-karya visual dan fotografi mahasiswa.',
+  },
+  {
+    id: 10,
+    title: '3D Furniture AR',
+    category: 'Animasi & 3D',
+    year: '2025',
+    featured: false,
+    tools: ['Unity', '3D Modeling', 'Augmented Reality'],
+    description:
+      'Aplikasi prototipe Augmented Reality untuk memvisualisasikan penempatan furnitur 3D secara real-time di ruangan.',
+  },
+  {
+    id: 11,
+    title: 'Pilih Cerdik Cegah Kanker',
+    category: 'Video Pendek',
+    year: '2025',
+    featured: false,
+    tools: ['Video Editing', 'Directing', 'Cinematography'],
+    description:
+      'Video pendek edukasi untuk kampanye pencegahan kanker pada peringatan World Cancer Day.',
+  },
+  {
+    id: 12,
+    title: 'Melangkah Bersama',
+    category: 'Video Pendek',
+    year: '2025',
+    featured: false,
+    tools: ['Video Director', 'Editing', 'Storytelling'],
+    description:
+      'Penyutradaraan dan penyuntingan video pendek naratif yang inspiratif.',
+  },
+  {
+    id: 13,
+    title: 'Cerita Di Atas Air',
+    category: 'Video Pendek',
+    year: '2025',
+    featured: false,
+    tools: ['Cinematography', 'Editing', 'Produksi Konten'],
+    description:
+      'Film pendek dokumenter naratif yang menyoroti kehidupan di atas air.',
+  },
+  {
+    id: 14,
+    title: 'Duta Pelajar Banjarmasin',
+    category: 'Desain Grafis',
+    year: '2025',
+    featured: false,
+    tools: ['Graphic Design', 'Brand Identity', 'Canva/Figma'],
+    description:
+      'Pembuatan aset visual, poster, dan materi branding untuk ajang Duta Pelajar Kota Banjarmasin 2025.',
+  },
+  {
+    id: 15,
+    title: 'Leadcamp Polhas',
+    category: 'Desain Grafis',
+    year: '2025',
+    featured: false,
+    tools: ['Figma', 'Visual Identity', 'Layouting'],
+    description:
+      'Desain grafis dan identitas acara untuk program Leadcamp Politeknik Hasnur 2025.',
+  },
+];
+
+export const EXPERIENCE_DATA = [
+  {
+    year: '2026',
+    title: 'Founder Stokin Aja',
+    role: 'Aplikasi Manajemen Stok Usaha',
+    desc: 'Mengembangkan aplikasi Stokin Aja sebagai produk digital dengan fokus pada solusi pengelolaan kebutuhan stok secara praktis.',
+  },
+  {
+    year: '2026',
+    title: 'Founder Kita Atur',
+    role: 'Aplikasi Financial Tracker',
+    desc: 'Mengembangkan aplikasi Kita Atur, sebuah produk digital yang berfokus pada pengelolaan dan pengaturan kebutuhan pengguna.',
+  },
+  {
+    year: '2026',
+    title: 'CEO & Founder Viska Labs',
+    role: 'Creative Technology Agency',
+    desc: 'Memimpin pengembangan Viska Labs Indonesia sebagai inisiatif di bidang teknologi, dari konsep hingga implementasi produk digital.',
+  },
+  {
+    year: '2026',
+    title: 'Founder Creatone.id',
+    role: 'Creative Campaign',
+    desc: 'Mengembangkan inisiatif kreatif yang berfokus pada ide, karya, serta solusi berbasis perpaduan teknologi dan kreativitas.',
+  },
+  {
+    year: '2026',
+    title: 'Sekretaris Kementerian Kominfo',
+    role: 'BEM Politeknik Hasnur',
+    desc: 'Berperan dalam administrasi, koordinasi, dokumentasi, dan pelaksanaan program kerja komunikasi dan informasi.',
+  },
+  {
+    year: '2024',
+    title: 'Ketua Umum HIMA TRM',
+    role: 'Politeknik Hasnur',
+    desc: 'Memimpin organisasi mahasiswa, mengoordinasikan anggota, program kerja, kegiatan, serta kolaborasi eksternal.',
+  },
+  {
+    year: '2023 - 2025',
+    title: 'Layanan Konversi Mata Uang',
+    role: 'Usaha Pribadi',
+    desc: 'Mengelola layanan konversi mata uang Dollar ke Rupiah melalui PayPal, mencakup layanan klien dan administrasi transaksi.',
+  },
+  {
+    year: '2022 - Now',
+    title: 'Freelancer',
+    role: 'Digital & Creative',
+    desc: 'Mengerjakan berbagai proyek klien dalam bidang desain grafis, UI/UX, video, branding, konten, dan pengembangan aplikasi.',
+  },
+];
+
+export const ACHIEVEMENTS_DATA = [
+  {
+    year: '2025',
+    title: 'Juara 2 Video Pendek Tema Karhutla',
+    issuer: 'Universitas Palangka Raya',
+    type: 'Achievement',
+  },
+  {
+    year: '2025',
+    title: 'Juara 2 Video Pendek World Cancer Day',
+    issuer: 'Yayasan Kanker Indonesia Banjarmasin',
+    type: 'Achievement',
+  },
+  {
+    year: '2025',
+    title: 'Juara 3 Lomba Desain Grafis',
+    issuer: 'UIN Antasari Banjarmasin',
+    type: 'Achievement',
+  },
+  {
+    year: '2025',
+    title: 'Juara Harapan 1 Lomba Infografis',
+    issuer: 'ITEKES Kalbar',
+    type: 'Achievement',
+  },
+  {
+    year: '2025',
+    title: 'Sertifikasi Junior Graphic Designer',
+    issuer: 'Kementerian Digital (Komdigi)',
+    type: 'Certification',
+  },
+  {
+    year: '2025 & 2026',
+    title: 'Sertifikasi Video Content Creator',
+    issuer: 'Kementerian Digital (Komdigi)',
+    type: 'Certification',
+  },
+  {
+    year: '2025',
+    title: 'Sertifikasi Digital Marketing AI',
+    issuer: 'Kementerian Digital (Komdigi)',
+    type: 'Certification',
+  },
+];
+
+export const SKILL_METRICS = [
+  { subject: 'Video & Animasi', A: 80, fullMark: 100 },
+  { subject: 'UI/UX & Grafis', A: 90, fullMark: 100 },
+  { subject: 'Web & App Dev', A: 80, fullMark: 100 },
+  { subject: 'Brand & Content', A: 85, fullMark: 100 },
+  { subject: 'AI Prompting', A: 85, fullMark: 100 },
+  { subject: 'Game (Unity)', A: 75, fullMark: 100 },
+];
