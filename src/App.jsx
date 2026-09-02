@@ -23,11 +23,12 @@ export default function App() {
       smoothTouch: false,
     });
 
+    let rafId;
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     const handleAnchorClick = (e) => {
       const link = e.target.closest('a[href^="#"]');
@@ -46,6 +47,7 @@ export default function App() {
 
     return () => {
       lenis.destroy();
+      cancelAnimationFrame(rafId); // INI KUNCI UTAMANYA: Mematikan mesin saat reload!
       document.removeEventListener('click', handleAnchorClick);
     };
   }, []);
