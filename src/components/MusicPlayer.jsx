@@ -67,7 +67,7 @@ const MusicPlayer = () => {
                 Now Playing
               </span>
               <span className="font-body text-xs text-white/90 font-medium whitespace-nowrap">
-                Cyberpunk Chill - Anton Mix
+              The Weeknd ft Kendrick Lamar - Pray For Me
               </span>
             </div>
           </motion.div>
@@ -80,7 +80,7 @@ const MusicPlayer = () => {
         loop 
         preload="none"
         // Ganti src ini dengan file MP3 Anda nanti
-        src="/The_Weeknd_ft_Kendrick_Lamar_-_Pray_For_Me.mp3" 
+        src="/ambient-music.mp3" 
       />
     </div>
   );
