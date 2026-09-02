@@ -56,11 +56,7 @@ const About = () => {
           with technology<span className="text-[#143DED]">.</span>
         </h2>
         <p className="font-body text-white/70 text-sm md:text-base mb-8 leading-relaxed">
-          Saya adalah Mahasiswa Program Studi Teknologi Rekayasa Multimedia di
-          Politeknik Hasnur. Keterampilan saya mencakup desain grafis, web/app
-          development, UI/UX, video directing, animasi, hingga AI Prompting.
-          Saya merancang ekosistem digital dan memimpin tim dari fase ideasi
-          hingga implementasi teknis.
+          Sebagai mahasiswa Teknologi Rekayasa Multimedia di Politeknik Hasnur, saya memposisikan diri di persimpangan antara seni dan kode. Saya berfokus pada perancangan produk end-to-end, memastikan setiap piksel memiliki tujuan dan setiap baris program memberikan performa optimal.
         </p>
 
         {/* Hard & Soft Skills Labels */}
@@ -71,18 +67,16 @@ const About = () => {
             </h4>
             <div className="flex flex-wrap gap-2">
               {[
-                'Desain Grafis',
-                'Brand Identity',
                 'UI/UX Design',
-                'Programming & Dev',
+                'Brand Identity',
                 'Web Development',
                 'App Development',
-                'Game Dev (Unity)',
+                'Game Development',
+                'Data Analytics',
                 'Video Production',
-                'Animation',
+                '3D & Animation',
                 'AI Prompting',
-                'Data Visualisasi',
-                'React',
+                'React Ecosystem',
                 'Figma',
               ].map((skill) => (
                 <span
@@ -207,7 +201,7 @@ const About = () => {
           ].map((box, i) => (
             <div
               key={i}
-              className="relative group bg-white/[0.03] backdrop-blur-xl backdrop-saturate-150 border border-white/5 shadow-[0_4px_24px_rgba(0,0,0,0.1)] rounded-2xl p-5 flex flex-col justify-between aspect-square hover:bg-white/[0.06] transition-all duration-500 overflow-hidden"
+              className="relative group bg-gradient-to-br from-white/[0.04] to-transparent backdrop-blur-2xl backdrop-saturate-[2] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.2)] rounded-2xl p-5 flex flex-col justify-between aspect-square hover:border-white/20 hover:from-white/[0.08] transition-all duration-500 overflow-hidden"
             >
               <div className="absolute inset-0 border-t border-white/10 rounded-2xl pointer-events-none"></div>
               <p className="font-body text-xs text-white/50 whitespace-pre-line">

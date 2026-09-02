@@ -43,10 +43,12 @@ const Navigation = () => {
             <li key={item}>
               <a
                 href={`#${item}`}
-                className="hover:text-[#143DED] transition-colors capitalize"
+                className="group relative hover:text-white transition-colors capitalize py-1 block"
               >
-                <span className="text-[#143DED] text-xs mr-1">0{i + 1}</span>{' '}
+                <span className="text-[#143DED] text-xs mr-1 opacity-70 group-hover:opacity-100 transition-opacity">0{i + 1}</span>{' '}
                 {item}
+                {/* Indikator Pil Cahaya Desktop */}
+                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-[#143DED] to-cyan-400 rounded-full transition-all duration-300 ease-out group-hover:w-full shadow-[0_0_12px_rgba(20,61,237,0.8)]"></span>
               </a>
             </li>
           ))}
@@ -108,15 +110,30 @@ const Navigation = () => {
             <li key={item}>
               <a
                 href={`#${item}`}
-                className="hover:text-[#143DED] transition-colors capitalize"
+                className="hover:text-white transition-colors capitalize relative group"
                 onClick={() => setIsOpen(false)}
               >
-                <span className="text-[#143DED] text-sm mr-2">0{i + 1}</span>{' '}
+                <span className="text-[#143DED] text-sm mr-2 opacity-70">0{i + 1}</span>{' '}
                 {item}
+                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-transparent via-[#143DED] to-transparent transition-all duration-300 group-hover:w-full"></span>
               </a>
             </li>
           ))}
         </ul>
+        
+        {/* Tombol Hire Me (WhatsApp) di Layar Mobile */}
+        <a
+          href="https://wa.me/6281645483272?text=Halo%20Anton,%20saya%20melihat%20portfolio%20Anda%20dan%20tertarik%20untuk%20berdiskusi%20lebih%20lanjut."
+          target="_blank"
+          rel="noreferrer"
+          className="mt-12 flex items-center gap-3 bg-gradient-to-r from-[#143DED] to-cyan-500 hover:scale-105 transition-all duration-300 text-white rounded-full px-8 py-3 shadow-[0_0_20px_rgba(20,61,237,0.4)]"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+            <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
+          </svg>
+          <span className="font-body text-sm font-bold">Chat on WhatsApp</span>
+        </a>
       </div>
     </>
   );

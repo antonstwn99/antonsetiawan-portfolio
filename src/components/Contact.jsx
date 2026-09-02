@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import antonLogo from '../assets/anton/anton-logo.png';
 
 const Contact = () => {
   const [isCopied, setIsCopied] = useState(false);
@@ -124,9 +125,11 @@ const Contact = () => {
 
       <div className="w-full mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-          <div className="font-heading font-bold text-white text-xl tracking-widest">
-            AS.
-          </div>
+          <img 
+            src={antonLogo} 
+            alt="Anton Setiawan Logo" 
+            className="w-10 h-10 rounded-xl border border-white/10 opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+          />
           <p className="font-body text-xs text-white/50">
             © 2026 Anton Setiawan. All rights reserved.
           </p>

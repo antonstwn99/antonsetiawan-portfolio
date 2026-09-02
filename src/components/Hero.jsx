@@ -92,11 +92,9 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="font-body text-white/70 text-sm md:text-base max-w-[420px] mb-10 leading-relaxed font-normal"
+          className="font-body text-white/70 text-sm md:text-base max-w-[460px] mb-10 leading-relaxed font-normal"
         >
-          Mahasiswa Teknologi Rekayasa Multimedia di Politeknik Hasnur. Saya
-          menggabungkan desain grafis, pengembangan web/aplikasi, dan produksi
-          video untuk menciptakan ekosistem digital yang berdampak nyata.
+          Saya merancang dan membangun ekosistem digital. Memadukan estetika desain visual, logika rekayasa perangkat lunak, dan strategi multimedia untuk menciptakan solusi teknologi yang terukur dan berdampak nyata.
         </motion.p>
 
         {/* CTA Button */}
