@@ -1,7 +1,7 @@
 import React, { useRef, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Float, Environment, ContactShadows, OrbitControls } from '@react-three/drei';
+import { useGLTF, Float, Environment, ContactShadows, OrbitControls, Html } from '@react-three/drei';
 import { SKILL_METRICS } from '../data/portfolioData';
 import mascotGlb from '../assets/anton/antons-mascot.glb';
 
@@ -173,7 +173,16 @@ const About = () => {
               maxPolarAngle={Math.PI / 1.5}
             />
             
-            <Suspense fallback={null}>
+            <Suspense fallback={
+              <Html center>
+                <div className="flex flex-col items-center justify-center gap-3">
+                  <div className="w-10 h-10 rounded-full border-2 border-[#143DED]/20 border-t-[#143DED] animate-spin shadow-[0_0_15px_rgba(20,61,237,0.5)]"></div>
+                  <span className="font-mono text-[10px] text-[#143DED] tracking-widest whitespace-nowrap animate-pulse">
+                    [ RENDERING 3D ASSET ]
+                  </span>
+                </div>
+              </Html>
+            }>
               <AntonMascotModel />
               <Environment preset="city" />
               
