@@ -22,10 +22,10 @@ const InteractivePortrait = () => {
     maskRef.current.style.maskImage = `radial-gradient(circle 180px at ${x}% ${y}%, black 20%, transparent 100%)`;
   };
 
-  const handlePointerMove = (e) => {
-    pointerPos.current = { x: e.clientX, y: e.clientY };
-    // UPDATE INSTAN! Eksekusi langsung tanpa menunggu frame berikutnya
-    updateMask(e.clientX, e.clientY);
+  const handleInteraction = (clientX, clientY) => {
+    pointerPos.current = { x: clientX, y: clientY };
+    updateMask(clientX, clientY);
+    if (!isHovered) setIsHovered(true);
   };
 
   useEffect(() => {
@@ -50,19 +50,14 @@ const InteractivePortrait = () => {
   return (
     <div
       ref={containerRef}
-      onPointerMove={handlePointerMove}
-      onPointerEnter={(e) => {
-        pointerPos.current = { x: e.clientX, y: e.clientY };
-        updateMask(e.clientX, e.clientY);
-        setIsHovered(true);
-      }}
+      // Desktop Events
+      onPointerMove={(e) => handleInteraction(e.clientX, e.clientY)}
+      onPointerDown={(e) => handleInteraction(e.clientX, e.clientY)}
       onPointerLeave={() => setIsHovered(false)}
-      // Tangkap momen jari MENYENTUH (meski diam) secara instan di layar sentuh
-      onPointerDown={(e) => {
-        pointerPos.current = { x: e.clientX, y: e.clientY };
-        updateMask(e.clientX, e.clientY);
-        setIsHovered(true);
-      }}
+      // Mobile Touch Events (Membaca sentuhan 0ms tanpa delay browser)
+      onTouchStart={(e) => handleInteraction(e.touches[0].clientX, e.touches[0].clientY)}
+      onTouchMove={(e) => handleInteraction(e.touches[0].clientX, e.touches[0].clientY)}
+      onTouchEnd={() => setIsHovered(false)}
       className="relative w-full max-w-[480px] aspect-[4/5] mx-auto md:mr-0 group cursor-none outline-none rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/[0.08] to-transparent backdrop-blur-2xl backdrop-saturate-[2] shadow-[0_16px_40px_rgba(0,0,0,0.4)]"
       data-cursor="TOUCH"
     >
@@ -77,11 +72,8 @@ const InteractivePortrait = () => {
       {/* 2. LAYER ATAS (X-Ray) */}
       <div 
         ref={maskRef}
-        className="absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-300"
-        style={{
-          opacity: isHovered ? 1 : 0
-          // KUNCI PERBAIKAN: WebkitMaskImage DIHAPUS dari sini agar React tidak me-reset posisinya ke tengah setiap kali disentuh!
-        }}
+        // KUNCI ABSOLUT: Opacity dipindah ke Tailwind class agar React TIDAK MERESET properti objek `style` sama sekali saat disentuh
+        className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
       >
         <img 
           src={antonBiru} 
