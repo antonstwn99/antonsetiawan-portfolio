@@ -149,15 +149,12 @@ const SelectedWork = () => {
                     [ RENDERING ASSET ]
                   </div>
                 </div>
-                <video
-                  src="https://cdn.dribbble.com/uploads/39417/original/3142e0fc211833e70d44b5a2f58be62d.mp4"
-                  loop
-                  muted
-                  playsInline
-                  preload="none"
-                  onMouseEnter={(e) => e.target.play()}
-                  onMouseLeave={(e) => e.target.pause()}
-                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-60 transition-all duration-700 scale-105 group-hover:scale-100 z-10 mix-blend-screen"
+                <img
+                  // Membaca gambar dari portfolioData.js, fallback ke gambar placeholder jika belum diisi
+                  src={project.image || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"}
+                  alt={project.title}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover opacity-50 md:opacity-30 group-hover:opacity-80 transition-all duration-700 scale-100 md:scale-105 group-hover:scale-100 z-10 mix-blend-screen"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#05070D]/90 via-[#05070D]/40 to-transparent backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-end pb-8 gap-4 text-center z-20">
                   <span className="text-white font-body text-sm font-bold tracking-widest uppercase translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
@@ -277,12 +274,30 @@ const SelectedWork = () => {
                   ))}
                 </div>
               </div>
-              <button
-                onClick={() => setActiveProject(null)}
-                className="inline-flex items-center gap-3 bg-white text-[#05070D] px-6 md:px-8 py-2 md:py-3 rounded-full text-sm font-bold hover:bg-[#143DED] hover:text-white transition-all duration-300"
-              >
-                Close Project
-              </button>
+              <div className="flex flex-wrap items-center gap-4">
+                {/* Tombol Link Eksternal hanya muncul jika Anda menambahkan properti "link: '...'" di portfolioData.js */}
+                {activeProject.link && (
+                  <a
+                    href={activeProject.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#143DED] text-white px-6 md:px-8 py-2 md:py-3 rounded-full text-sm font-bold hover:bg-white hover:text-[#05070D] transition-all duration-300 shadow-[0_0_15px_rgba(20,61,237,0.4)]"
+                  >
+                    Visit Project
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                )}
+                <button
+                  onClick={() => setActiveProject(null)}
+                  className="inline-flex items-center gap-3 bg-white/10 text-white border border-white/20 px-6 md:px-8 py-2 md:py-3 rounded-full text-sm font-bold hover:bg-white hover:text-[#05070D] transition-all duration-300"
+                >
+                  Close Project
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}

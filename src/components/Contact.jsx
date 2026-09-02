@@ -4,11 +4,16 @@ import antonLogo from '../assets/anton/anton-logo.png';
 const Contact = () => {
   const [isCopied, setIsCopied] = useState(false);
 
-  const handleCopyEmail = (e) => {
+  const handleCopyEmail = async (e) => {
     e.preventDefault();
-    navigator.clipboard.writeText('antonstwn604@gmail.com');
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText('antonstwn604@gmail.com');
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      console.error('Gagal menyalin email:', err);
+      // Anda bisa menambahkan notifikasi Toast "Gagal" di sini kelak
+    }
   };
 
   return (

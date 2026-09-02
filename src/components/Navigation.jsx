@@ -56,7 +56,9 @@ const Navigation = () => {
 
         <div className="flex items-center gap-4 relative z-50">
           <a
-            href="#contact"
+            href="https://wa.me/6281645483272?text=Halo%20Anton,%20saya%20melihat%20portfolio%20Anda%20dan%20tertarik%20untuk%20berdiskusi%20lebih%20lanjut."
+            target="_blank"
+            rel="noreferrer"
             className="hidden md:block text-white text-xs font-body border border-white/20 hover:border-white/50 hover:bg-white/5 rounded-full px-4 py-2 transition-all"
           >
             Hire Me

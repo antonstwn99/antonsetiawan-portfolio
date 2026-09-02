@@ -7,7 +7,8 @@ const CustomCursor = () => {
   const [isDesktop, setIsDesktop] = useState(true);
 
   useEffect(() => {
-    const checkMobile = () => setIsDesktop(window.innerWidth > 768);
+    // Mendeteksi ketersediaan hardware mouse sungguhan, bukan sekadar ukuran layar
+    const checkMobile = () => setIsDesktop(window.matchMedia('(pointer: fine)').matches);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     if (!isDesktop) return;
