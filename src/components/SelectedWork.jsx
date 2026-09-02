@@ -142,10 +142,12 @@ const SelectedWork = () => {
                 </div>
                 <video
                   src="https://cdn.dribbble.com/uploads/39417/original/3142e0fc211833e70d44b5a2f58be62d.mp4"
-                  autoPlay
                   loop
                   muted
                   playsInline
+                  preload="none"
+                  onMouseEnter={(e) => e.target.play()}
+                  onMouseLeave={(e) => e.target.pause()}
                   className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-60 transition-all duration-700 scale-105 group-hover:scale-100 z-10 mix-blend-screen"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#05070D]/90 via-[#05070D]/40 to-transparent backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-end pb-8 gap-4 text-center z-20">

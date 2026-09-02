@@ -10,18 +10,14 @@ const AntonMascotModel = () => {
   const { scene } = useGLTF(mascotGlb);
   const meshRef = useRef();
 
-  // Animasi mengambang dan menatap lambat
-  useFrame((state) => {
-    if (!meshRef.current) return;
-    const t = state.clock.getElapsedTime();
-    meshRef.current.rotation.y = Math.sin(t / 2.5) / 4; // Rotasi kiri-kanan lambat
-    meshRef.current.rotation.z = Math.sin(t / 2) / 15;
-    meshRef.current.position.y = Math.sin(t / 1.5) / 10;
-  });
-
   return (
-    <Float speed={2.5} rotationIntensity={0.5} floatIntensity={1}>
-      <primitive ref={meshRef} object={scene} scale={1.8} position={[0, -1.2, 0]} />
+    <Float 
+      speed={2.5} 
+      rotationIntensity={0.5} 
+      floatIntensity={1}
+      floatingRange={[-0.1, 0.1]}
+    >
+      <primitive object={scene} scale={1.8} position={[0, -1.2, 0]} />
     </Float>
   );
 };
