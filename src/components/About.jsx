@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Float, Environment, ContactShadows, OrbitControls } from '@react-three/drei';
@@ -149,8 +149,14 @@ const About = () => {
           <motion.div animate={{ rotate: 360 }} transition={{ duration: 25, repeat: Infinity, ease: 'linear' }} className="absolute w-[240px] sm:w-[300px] xl:w-[380px] h-[240px] sm:h-[300px] xl:h-[380px] rounded-full border border-[#143DED]/20 border-dashed" />
         </div>
 
-        {/* Kanvas 3D Objek Wajah */}
-        <div className="relative z-10 w-full h-full">
+        {/* Kanvas 3D Objek Wajah - Ditambahkan Fade Mask di bawah untuk menyembunyikan potongan */}
+        <div 
+          className="relative z-10 w-full h-full"
+          style={{
+            WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 95%)',
+            maskImage: 'linear-gradient(to bottom, black 65%, transparent 95%)'
+          }}
+        >
         <Canvas 
             camera={{ position: [0, 0, 5.5], fov: 45 }}
             dpr={[1, 1.5]} 
@@ -167,20 +173,21 @@ const About = () => {
               maxPolarAngle={Math.PI / 1.5}
             />
             
-            <AntonMascotModel />
-            
-            <Environment preset="city" />
-            
-            {/* OPTIMASI: frames={1} mencegah render ulang bayangan setiap detik */}
-            <ContactShadows 
-              position={[0, -2.5, 0]} 
-              opacity={0.4} 
-              scale={15} 
-              blur={2.5} 
-              far={4} 
-              frames={1} 
-              resolution={256} 
-            />
+            <Suspense fallback={null}>
+              <AntonMascotModel />
+              <Environment preset="city" />
+              
+              {/* OPTIMASI: frames={1} mencegah render ulang bayangan setiap detik */}
+              <ContactShadows 
+                position={[0, -2.5, 0]} 
+                opacity={0.4} 
+                scale={15} 
+                blur={2.5} 
+                far={4} 
+                frames={1} 
+                resolution={256} 
+              />
+            </Suspense>
           </Canvas>
         </div>
       </div>

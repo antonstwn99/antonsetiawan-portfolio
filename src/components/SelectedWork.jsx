@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROJECT_DATABASE } from '../data/portfolioData';
 
@@ -10,10 +10,19 @@ const SelectedWork = () => {
     : PROJECT_DATABASE.slice(0, 5);
   const scrollContainerRef = useRef(null);
 
+  useEffect(() => {
+    document.body.style.overflow = activeProject ? 'hidden' : 'unset';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [activeProject]);
+
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
+      // Dinamis: Geser 80vw di HP, atau 400px di Desktop
+      const scrollAmount = window.innerWidth < 768 ? window.innerWidth * 0.8 : 400;
       scrollContainerRef.current.scrollBy({
-        left: direction === 'left' ? -400 : 400,
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth',
       });
     }
@@ -218,13 +227,14 @@ const SelectedWork = () => {
             onClick={() => setActiveProject(null)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-white/[0.03] backdrop-blur-2xl backdrop-saturate-[1.3] border border-white/10 w-full max-w-3xl rounded-3xl p-6 md:p-12 relative overflow-y-auto overflow-x-hidden max-h-[85vh] shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
-              onClick={(e) => e.stopPropagation()}
-            >
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-white/[0.03] backdrop-blur-2xl backdrop-saturate-[1.3] border border-white/10 w-full max-w-3xl rounded-3xl p-6 md:p-12 relative overflow-y-auto overflow-x-hidden max-h-[85vh] shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+                onClick={(e) => e.stopPropagation()}
+                data-lenis-prevent="true"
+              >
               <div className="absolute inset-0 border-t border-white/20 rounded-3xl pointer-events-none"></div>
               <button
                 onClick={() => setActiveProject(null)}
