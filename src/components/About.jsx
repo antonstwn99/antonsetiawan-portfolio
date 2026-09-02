@@ -17,7 +17,7 @@ const AntonMascotModel = () => {
       floatIntensity={1}
       floatingRange={[-0.1, 0.1]}
     >
-      <primitive object={scene} scale={1.8} position={[0, -1.2, 0]} />
+      <primitive object={scene} scale={1.8} position={[0, 0.15, 0]} />
     </Float>
   );
 };
