@@ -50,10 +50,11 @@ const Contact = () => {
 
           <div className="relative z-10 flex flex-wrap justify-center lg:justify-end items-center gap-4 md:gap-6 w-full lg:w-auto">
             <div className="flex gap-6 mr-0 md:mr-4">
-              <a
-                href="#"
+              <button
+                type="button"
                 onClick={handleCopyEmail}
-                className="flex items-center gap-2 text-white/70 hover:text-white transition-colors group relative"
+                className="flex items-center gap-2 text-white/70 hover:text-white transition-colors group relative outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#143DED] focus-visible:outline-offset-4 rounded-sm"
+                aria-label="Copy email address"
                 title="Copy Email"
               >
                 <svg
@@ -75,7 +76,7 @@ const Contact = () => {
                     Copied!
                   </span>
                 )}
-              </a>
+              </button>
               <a
                 href="https://instagram.com/antonstwn__"
                 target="_blank"

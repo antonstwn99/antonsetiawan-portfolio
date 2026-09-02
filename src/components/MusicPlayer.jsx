@@ -25,8 +25,9 @@ const MusicPlayer = () => {
       {/* Tombol Play/Pause */}
       <button 
         onClick={togglePlay}
-        className="pointer-events-auto relative w-12 h-12 rounded-full bg-white/[0.03] backdrop-blur-xl border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-[#143DED]/50 transition-all duration-300 group outline-none shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+        className="pointer-events-auto relative w-12 h-12 rounded-full bg-white/[0.03] backdrop-blur-xl border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-[#143DED]/50 transition-all duration-300 group outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#143DED] focus-visible:outline-offset-4 shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
         data-cursor={isPlaying ? "PAUSE" : "PLAY AUDIO"}
+        aria-label={isPlaying ? "Pause background music" : "Play background music"}
       >
         {/* Efek Glow saat menyala */}
         {isPlaying && (

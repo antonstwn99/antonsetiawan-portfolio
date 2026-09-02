@@ -64,8 +64,10 @@ const Navigation = () => {
             Hire Me
           </a>
           <button
-            className="md:hidden text-white outline-none"
+            className="md:hidden text-white outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#143DED] focus-visible:outline-offset-4 rounded-sm"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
           >
             <svg
               width="24"
