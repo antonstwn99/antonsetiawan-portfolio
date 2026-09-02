@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import {
   Code2,
   Terminal,
@@ -57,44 +58,52 @@ const Capabilities = () => {
             best<span className="text-[#143DED]">.</span>
           </h2>
         </div>
-        <div
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.1 } },
+            hidden: {}
+          }}
           className="w-full xl:w-[80%] flex gap-8 md:gap-14 overflow-x-auto hide-scrollbar items-center pb-4 xl:pb-0"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {skills.map((skill) => (
-            <div
+            <motion.div
               key={skill.id}
-              className="flex flex-col items-start gap-4 shrink-0 hover:-translate-y-1 transition-transform duration-300 cursor-pointer"
+              variants={{
+                hidden: { opacity: 0, x: 20 },
+                visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: 'easeOut' } }
+              }}
+              className="flex flex-col items-start gap-4 shrink-0 hover:-translate-y-1 transition-transform duration-300 cursor-pointer group"
             >
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl border border-white/10 bg-[#05070D] flex items-center justify-center text-white/50 hover:text-[#143DED] hover:border-[#143DED]/50 transition-all duration-300">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl border border-white/10 bg-[#05070D] flex items-center justify-center text-white/50 group-hover:text-[#143DED] group-hover:border-[#143DED]/50 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
                 {skill.icon}
               </div>
-              <p className="font-body text-sm font-medium text-white/80 whitespace-pre-line leading-tight">
+              <p className="font-body text-sm font-medium text-white/80 whitespace-pre-line leading-tight group-hover:text-white transition-colors">
                 {skill.label}
               </p>
-            </div>
+            </motion.div>
           ))}
-          <div className="shrink-0 pl-4 md:pl-8 flex items-center">
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, scale: 0.8 },
+              visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } }
+            }}
+            className="shrink-0 pl-4 md:pl-8 flex items-center"
+          >
             <a
               href="#experience"
-              className="w-12 h-12 rounded-full bg-[#143DED] flex items-center justify-center text-white hover:scale-110 transition-transform duration-300 shadow-[0_0_20px_rgba(20,61,237,0.3)]"
+              className="w-12 h-12 rounded-full bg-[#143DED] flex items-center justify-center text-white hover:scale-110 transition-transform duration-300 shadow-[0_0_20px_rgba(20,61,237,0.4)]"
             >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14"></path>
                 <path d="m12 5 7 7-7 7"></path>
               </svg>
             </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

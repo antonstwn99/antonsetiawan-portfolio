@@ -125,8 +125,20 @@ const SelectedWork = () => {
               data-cursor="VIEW"
             >
               <div className="w-full aspect-[4/3] bg-[#05070D] relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center text-white/10 font-body text-xs tracking-widest transition-transform duration-700 group-hover:scale-110 group-hover:opacity-0 z-10 bg-[#080D18]">
-                  [ IMG: {project.title.toUpperCase()} ]
+                {/* Futuristic Hologram Skeleton Background */}
+                <div className="absolute inset-0 bg-[#080D18] z-0 overflow-hidden flex items-center justify-center">
+                  <motion.div 
+                    animate={{ y: ['-100%', '100%'] }} 
+                    transition={{ duration: 2, repeat: Infinity, ease: 'linear' }} 
+                    className="absolute top-0 left-0 w-full h-[30%] bg-gradient-to-b from-transparent via-[#143DED]/20 to-transparent" 
+                  />
+                  <div className="text-[#143DED]/40 font-mono text-[10px] tracking-widest transition-transform duration-700 group-hover:scale-110 group-hover:opacity-0 flex flex-col items-center gap-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="animate-pulse">
+                      <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
+                      <path d="M21 3v5h-5" />
+                    </svg>
+                    [ RENDERING ASSET ]
+                  </div>
                 </div>
                 <video
                   src="https://cdn.dribbble.com/uploads/39417/original/3142e0fc211833e70d44b5a2f58be62d.mp4"
@@ -134,7 +146,7 @@ const SelectedWork = () => {
                   loop
                   muted
                   playsInline
-                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-50 transition-all duration-700 scale-105 group-hover:scale-100"
+                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-60 transition-all duration-700 scale-105 group-hover:scale-100 z-10 mix-blend-screen"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#05070D]/90 via-[#05070D]/40 to-transparent backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-end pb-8 gap-4 text-center z-20">
                   <span className="text-white font-body text-sm font-bold tracking-widest uppercase translate-y-6 group-hover:translate-y-0 transition-transform duration-500">

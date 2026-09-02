@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Float, Environment, ContactShadows, OrbitControls } from '@react-three/drei';
 import { SKILL_METRICS } from '../data/portfolioData';
@@ -214,69 +213,38 @@ const About = () => {
           ))}
         </div>
 
-        {/* Grafik Radar ditaruh di kolom kanan untuk menyeimbangkan layout */}
-        <div className="w-full bg-white/[0.02] border border-white/5 rounded-2xl p-5 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.2)] flex-grow flex flex-col">
-          <div className="flex items-center justify-between mb-4 px-2">
+        {/* Futuristic Skill Bars (Lightweight & No Recharts) */}
+        <div className="w-full bg-gradient-to-br from-white/[0.04] to-transparent border border-white/10 rounded-2xl p-6 backdrop-blur-2xl backdrop-saturate-[2] shadow-[0_8px_32px_rgba(0,0,0,0.2)] flex-grow flex flex-col hover:border-white/20 transition-all duration-500">
+          <div className="flex items-center justify-between mb-6">
             <h4 className="font-body text-[10px] text-[#143DED] uppercase tracking-widest font-bold">
-              Competency Radar
+              Core Competencies
             </h4>
-            <span className="flex h-2 w-2" title="Live Data Stream">
-              <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-[#143DED] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#143DED]"></span>
+            <span className="flex h-2 w-2" title="System Optimized">
+              <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-cyan-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
             </span>
           </div>
-          <div className="flex-grow min-h-[220px] w-full cursor-crosshair">
-            <ResponsiveContainer width="100%" height="100%">
-              <RadarChart
-                cx="50%"
-                cy="50%"
-                outerRadius="55%"
-                data={SKILL_METRICS}
-              >
-                <PolarGrid stroke="rgba(255,255,255,0.1)" />
-                <PolarAngleAxis
-                  dataKey="subject"
-                  tick={{
-                    fill: 'rgba(255,255,255,0.6)',
-                    fontSize: 10,
-                    fontFamily: 'Plus Jakarta Sans',
-                    fontWeight: 500,
-                  }}
-                />
-                <PolarRadiusAxis
-                  angle={30}
-                  domain={[0, 100]}
-                  tick={false}
-                  axisLine={false}
-                />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: '#080D18',
-                    borderColor: 'rgba(20,61,237,0.3)',
-                    borderRadius: '12px',
-                    color: '#fff',
-                    fontSize: '12px',
-                    backdropFilter: 'blur(10px)',
-                  }}
-                  itemStyle={{ color: '#143DED', fontWeight: 'bold' }}
-                  formatter={(value) => [`${value}%`, 'Proficiency']}
-                />
-                <Radar
-                  name="Proficiency"
-                  dataKey="A"
-                  stroke="#143DED"
-                  strokeWidth={2}
-                  fill="#143DED"
-                  fillOpacity={0.4}
-                  activeDot={{
-                    r: 5,
-                    fill: '#fff',
-                    stroke: '#143DED',
-                    strokeWidth: 2,
-                  }}
-                />
-              </RadarChart>
-            </ResponsiveContainer>
+          <div className="flex flex-col gap-4 flex-grow justify-center">
+            {SKILL_METRICS.map((skill, i) => (
+              <div key={i} className="w-full group">
+                <div className="flex justify-between items-end mb-1.5">
+                  <span className="font-body text-xs font-medium text-white/80 group-hover:text-white transition-colors">{skill.subject}</span>
+                  <span className="font-body text-[10px] text-white/40 font-mono">{skill.A}%</span>
+                </div>
+                <div className="w-full h-[4px] bg-white/5 rounded-full overflow-hidden relative">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${skill.A}%` }}
+                    viewport={{ once: true, margin: '-50px' }}
+                    transition={{ duration: 1.2, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#143DED] to-cyan-400 rounded-full"
+                  >
+                    {/* Glowing dot di ujung bar */}
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_2px_rgba(20,61,237,0.8)]"></div>
+                  </motion.div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
