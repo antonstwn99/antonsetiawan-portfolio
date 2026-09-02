@@ -12,6 +12,7 @@ import Experience from './components/Experience';
 import Process from './components/Process';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
+import MusicPlayer from './components/MusicPlayer';
 
 export default function App() {
   // Inisialisasi Smooth Scrolling (Lenis) & Navigasi
@@ -53,6 +54,7 @@ export default function App() {
     <div className="app-wrapper bg-[#05070D] text-white font-body selection:bg-[#143DED] selection:text-white md:cursor-none overflow-x-hidden">
       <CustomCursor />
       <Navigation />
+      <MusicPlayer />
       <main>
         <Hero />
         <SelectedWork />
