@@ -10,35 +10,37 @@ const InteractivePortrait = () => {
   const pointerPos = useRef({ x: 0, y: 0 });
   const rafId = useRef(null);
 
+  // Ekstrak fungsi update agar bisa dipanggil seketika saat kursor bergerak (Zero Latency)
+  const updateMask = (clientX, clientY) => {
+    if (!containerRef.current || !maskRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    
+    const x = ((clientX - rect.left) / rect.width) * 100;
+    const y = ((clientY - rect.top) / rect.height) * 100;
+    
+    maskRef.current.style.WebkitMaskImage = `radial-gradient(circle 180px at ${x}% ${y}%, black 20%, transparent 100%)`;
+    maskRef.current.style.maskImage = `radial-gradient(circle 180px at ${x}% ${y}%, black 20%, transparent 100%)`;
+  };
+
   const handlePointerMove = (e) => {
-    // PointerEvent di React secara otomatis memiliki clientX dan clientY (baik untuk Mouse maupun Layar Sentuh)
     pointerPos.current = { x: e.clientX, y: e.clientY };
+    // UPDATE INSTAN! Eksekusi langsung tanpa menunggu frame berikutnya
+    updateMask(e.clientX, e.clientY);
   };
 
   useEffect(() => {
-    // Jika tidak sedang di-hover, matikan mesin render untuk menghemat baterai & CPU
     if (!isHovered) {
       if (rafId.current) cancelAnimationFrame(rafId.current);
       return;
     }
 
-    const updateMask = () => {
-      if (containerRef.current && maskRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        
-        // Kalkulasi posisi X dan Y dilakukan SEKARANG (60x per detik)
-        // Ini mengimbangi pergerakan animasi melayang (float) dari parent
-        const x = ((pointerPos.current.x - rect.left) / rect.width) * 100;
-        const y = ((pointerPos.current.y - rect.top) / rect.height) * 100;
-        
-        maskRef.current.style.WebkitMaskImage = `radial-gradient(circle 180px at ${x}% ${y}%, black 20%, transparent 100%)`;
-        maskRef.current.style.maskImage = `radial-gradient(circle 180px at ${x}% ${y}%, black 20%, transparent 100%)`;
-      }
-      rafId.current = requestAnimationFrame(updateMask);
+    const loop = () => {
+      // UPDATE LOOP: Menjaga topeng tetap sinkron saat mouse/jari DIAM tapi gambar terus melayang
+      updateMask(pointerPos.current.x, pointerPos.current.y);
+      rafId.current = requestAnimationFrame(loop);
     };
 
-    // Mulai mesin render
-    rafId.current = requestAnimationFrame(updateMask);
+    rafId.current = requestAnimationFrame(loop);
 
     return () => {
       if (rafId.current) cancelAnimationFrame(rafId.current);
@@ -50,8 +52,8 @@ const InteractivePortrait = () => {
       ref={containerRef}
       onPointerMove={handlePointerMove}
       onPointerEnter={(e) => {
-        // Tangkap kordinat awal agar topeng tidak melompat dari pojok
         pointerPos.current = { x: e.clientX, y: e.clientY };
+        updateMask(e.clientX, e.clientY);
         setIsHovered(true);
       }}
       onPointerLeave={() => setIsHovered(false)}
