@@ -57,6 +57,12 @@ const InteractivePortrait = () => {
         setIsHovered(true);
       }}
       onPointerLeave={() => setIsHovered(false)}
+      // Tangkap momen jari MENYENTUH (meski diam) secara instan di layar sentuh
+      onPointerDown={(e) => {
+        pointerPos.current = { x: e.clientX, y: e.clientY };
+        updateMask(e.clientX, e.clientY);
+        setIsHovered(true);
+      }}
       className="relative w-full max-w-[480px] aspect-[4/5] mx-auto md:mr-0 group cursor-none outline-none rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/[0.08] to-transparent backdrop-blur-2xl backdrop-saturate-[2] shadow-[0_16px_40px_rgba(0,0,0,0.4)]"
       data-cursor="TOUCH"
     >
@@ -73,9 +79,8 @@ const InteractivePortrait = () => {
         ref={maskRef}
         className="absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-300"
         style={{
-          opacity: isHovered ? 1 : 0,
-          WebkitMaskImage: `radial-gradient(circle 180px at 50% 50%, black 20%, transparent 100%)`,
-          maskImage: `radial-gradient(circle 180px at 50% 50%, black 20%, transparent 100%)`
+          opacity: isHovered ? 1 : 0
+          // KUNCI PERBAIKAN: WebkitMaskImage DIHAPUS dari sini agar React tidak me-reset posisinya ke tengah setiap kali disentuh!
         }}
       >
         <img 
