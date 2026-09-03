@@ -59,7 +59,7 @@ export const PROJECT_DATABASE = [
     category: 'Website',
     year: '2026',
     featured: true,
-    tools: ['UI/UX', 'HTML/CSS', 'Javascript'],
+    tools: ['UI/UX', 'React Vite', 'Javascript'],
     description:
       'Portal informasi resmi untuk Badan Eksekutif Mahasiswa Politeknik Hasnur yang memfasilitasi komunikasi kampus.',
   },
@@ -69,7 +69,7 @@ export const PROJECT_DATABASE = [
     category: 'Game 2D',
     year: '2025',
     featured: true,
-    tools: ['Unity', 'Game Design', 'C#'],
+    tools: ['Unity', 'Game Design', 'C#', 'Canva'],
     description:
       'Game simulasi 2D interaktif yang mengajak pemain untuk mengelola dan mengembangkan bisnis warung.',
   },
@@ -79,7 +79,7 @@ export const PROJECT_DATABASE = [
     category: 'Video Pendek',
     year: '2026',
     featured: true,
-    tools: ['Video Director', 'CapCut', 'DaVinci Resolve'],
+    tools: ['Video Director', 'CapCut', 'Storytelling'],
     description:
       'Proyek video pendek sinematik edukatif yang berfokus pada penguatan literasi dan nalar kritis masyarakat.',
   },
@@ -89,7 +89,7 @@ export const PROJECT_DATABASE = [
     category: 'Website',
     year: '2025',
     featured: false,
-    tools: ['Web Design', 'Frontend'],
+    tools: ['Web Design', 'Frontend', 'Backend'],
     description:
       'Platform galeri digital interaktif untuk menaungi karya-karya visual dan fotografi mahasiswa.',
   },
@@ -135,7 +135,7 @@ export const PROJECT_DATABASE = [
   },
   {
     id: 14,
-    title: 'Duta Pelajar Banjarmasin',
+    title: 'Duta Pelajar Banjarmasin 2025',
     category: 'Desain Grafis',
     year: '2025',
     featured: false,
@@ -145,64 +145,64 @@ export const PROJECT_DATABASE = [
   },
   {
     id: 15,
-    title: 'Leadcamp Polhas',
+    title: 'Leadcamp Politeknik Hasnur 2026',
     category: 'Desain Grafis',
-    year: '2025',
+    year: '2026',
     featured: false,
     tools: ['Figma', 'Visual Identity', 'Layouting'],
     description:
-      'Desain grafis dan identitas acara untuk program Leadcamp Politeknik Hasnur 2025.',
+      'Desain grafis dan identitas acara untuk event Leadcamp Politeknik Hasnur 2025.',
   },
 ];
 
 export const EXPERIENCE_DATA = [
   {
-    year: '2026',
-    title: 'Founder Stokin Aja',
-    role: 'Aplikasi Manajemen Stok Usaha',
+    year: '2026 - Now',
+    title: 'Stokin Aja - Aplikasi Manajemen Barang & Stok Usaha',
+    role: 'Founder & Developer',
     desc: 'Mengembangkan aplikasi Stokin Aja sebagai produk digital dengan fokus pada solusi pengelolaan kebutuhan stok secara praktis.',
   },
   {
-    year: '2026',
-    title: 'Founder Kita Atur',
-    role: 'Aplikasi Financial Tracker',
-    desc: 'Mengembangkan aplikasi Kita Atur, sebuah produk digital yang berfokus pada pengelolaan dan pengaturan kebutuhan pengguna.',
+    year: '2026 - Now',
+    title: 'Kita Atur - Smart Financial Tracker App',
+    role: 'Founder & Developer',
+    desc: 'Mengembangkan aplikasi Kita Atur, sebuah produk digital yang berfokus pada pengelolaan dan manajemen keuangan pengguna.',
   },
   {
-    year: '2026',
-    title: 'CEO & Founder Viska Labs',
-    role: 'Creative Technology Agency',
+    year: '2026 - Now',
+    title: 'Viska Labs - Creative Technology Agency',
+    role: 'CEO & Founder',
     desc: 'Memimpin pengembangan Viska Labs Indonesia sebagai inisiatif di bidang teknologi, dari konsep hingga implementasi produk digital.',
   },
   {
-    year: '2026',
-    title: 'Founder Creatone.id',
-    role: 'Creative Campaign',
+    year: '2026 - Now',
+    title: 'Creatone.id - Creative Campaign',
+    role: 'Founder',
     desc: 'Mengembangkan inisiatif kreatif yang berfokus pada ide, karya, serta solusi berbasis perpaduan teknologi dan kreativitas.',
   },
   {
-    year: '2026',
-    title: 'Sekretaris Kementerian Kominfo',
-    role: 'BEM Politeknik Hasnur',
-    desc: 'Berperan dalam administrasi, koordinasi, dokumentasi, dan pelaksanaan program kerja komunikasi dan informasi.',
+    year: '2026 - Now',
+    title: 'BEM Politeknik Hasnur',
+    role: 'Sekretaris Kementerian Kominfo',
+    desc: 'Berperan dalam bidang teknologi, koordinasi, dokumentasi, dan pelaksanaan program kerja komunikasi dan informasi.',
   },
   {
-    year: '2024',
-    title: 'Ketua Umum HIMA TRM',
-    role: 'Politeknik Hasnur',
+    year: '2024 - Now',
+    title: 'HIMA TRM Politeknik Hasnur',
+    role: 'Ketua Umum',
     desc: 'Memimpin organisasi mahasiswa, mengoordinasikan anggota, program kerja, kegiatan, serta kolaborasi eksternal.',
   },
   {
     year: '2023 - 2025',
-    title: 'Layanan Konversi Mata Uang',
-    role: 'Usaha Pribadi',
+    title: 'AS Convert',
+    role: 'Owner',
     desc: 'Mengelola layanan konversi mata uang Dollar ke Rupiah melalui PayPal, mencakup layanan klien dan administrasi transaksi.',
   },
   {
     year: '2022 - Now',
-    title: 'Freelancer',
-    role: 'Digital & Creative',
-    desc: 'Mengerjakan berbagai proyek klien dalam bidang desain grafis, UI/UX, video, branding, konten, dan pengembangan aplikasi.',
+    title: 'Digital & Creative',
+    role: 'Freelancer',
+    desc: 'Mengerjakan berbagai proyek digital dalam bidang teknologi, desain grafis, UI/UX, video, branding, konten, dan pengembangan aplikasi serta website.',
   },
 ];
 
@@ -252,10 +252,10 @@ export const ACHIEVEMENTS_DATA = [
 ];
 
 export const SKILL_METRICS = [
-  { subject: 'Video & Animasi', A: 80, fullMark: 100 },
-  { subject: 'UI/UX & Grafis', A: 90, fullMark: 100 },
-  { subject: 'Web & App Dev', A: 80, fullMark: 100 },
-  { subject: 'Brand & Content', A: 85, fullMark: 100 },
-  { subject: 'AI Prompting', A: 85, fullMark: 100 },
-  { subject: 'Game (Unity)', A: 75, fullMark: 100 },
+  { subject: 'Video & Animasi', A: 82, fullMark: 100 },
+  { subject: 'UI/UX & Grafis', A: 87, fullMark: 100 },
+  { subject: 'Web & App Dev', A: 84, fullMark: 100 },
+  { subject: 'Brand & Content', A: 90, fullMark: 100 },
+  { subject: 'AI Prompting', A: 86, fullMark: 100 },
+  { subject: 'Game (Unity)', A: 80, fullMark: 100 },
 ];
