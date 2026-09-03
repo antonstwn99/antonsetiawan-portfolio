@@ -149,18 +149,13 @@ const About = () => {
           <motion.div animate={{ rotate: 360 }} transition={{ duration: 25, repeat: Infinity, ease: 'linear' }} className="absolute w-[240px] sm:w-[300px] xl:w-[380px] h-[240px] sm:h-[300px] xl:h-[380px] rounded-full border border-[#143DED]/20 border-dashed" />
         </div>
 
-        {/* Kanvas 3D Objek Wajah - Ditambahkan Fade Mask di bawah untuk menyembunyikan potongan */}
-        <div 
-          className="relative z-10 w-full h-full"
-          style={{
-            WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 95%)',
-            maskImage: 'linear-gradient(to bottom, black 65%, transparent 95%)'
-          }}
-        >
+        {/* Kanvas 3D Objek Wajah - Menggunakan Overlay DOM (Bukan CSS Mask) agar GPU Mobile tidak Crash */}
+        <div className="relative z-10 w-full h-full">
         <Canvas 
             camera={{ position: [0, 0, 5.5], fov: 45 }}
             dpr={[1, 1.5]} 
             performance={{ min: 0.5 }}
+            gl={{ antialias: false, powerPreference: "high-performance", alpha: true }}
           >
             <ambientLight intensity={0.8} />
             <spotLight position={[5, 10, 10]} angle={0.25} penumbra={1} intensity={2} color="#ffffff" />
@@ -198,6 +193,9 @@ const About = () => {
               />
             </Suspense>
           </Canvas>
+          
+          {/* FAKE MASK: Gradien fisik untuk menyamarkan potongan bawah (0% beban GPU dibanding CSS Mask) */}
+          <div className="absolute bottom-0 left-0 w-full h-[35%] bg-gradient-to-t from-[#05070D] via-[#05070D]/80 to-transparent pointer-events-none" />
         </div>
       </div>
 
