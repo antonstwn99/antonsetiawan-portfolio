@@ -4,8 +4,7 @@ import InteractivePortrait from './InteractivePortrait';
 
 const Hero = () => {
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 1000], [0, 400]);
-  const y2 = useTransform(scrollY, [0, 1000], [0, -300]);
+  // y1 dan y2 dihapus untuk mencegah GPU overload saat scroll di mobile
   const opacityGrid = useTransform(scrollY, [0, 600], [0.03, 0]);
 
   return (
@@ -15,16 +14,15 @@ const Hero = () => {
     >
       <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
         <motion.div
-          style={{ y: y1 }}
           animate={{ rotate: 360 }}
           transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-          className="absolute top-1/4 left-1/4 md:left-[10%] w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-[#143DED] blur-[100px] md:blur-[150px] opacity-20 mix-blend-screen rounded-full"
+          // style={y} dan mix-blend-screen dihapus agar rasterisasi piksel menjadi sangat ringan (hardware accelerated)
+          className="absolute top-1/4 left-1/4 md:left-[10%] w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-[#143DED] blur-[80px] md:blur-[150px] opacity-20 rounded-full"
         />
         <motion.div
-          style={{ y: y2 }}
           animate={{ rotate: -360 }}
           transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
-          className="absolute bottom-1/4 right-1/4 md:right-[5%] w-[250px] h-[250px] md:w-[450px] md:h-[450px] bg-[#3B82F6] blur-[100px] md:blur-[120px] opacity-15 mix-blend-screen rounded-[40%_60%_70%_30%]"
+          className="absolute bottom-1/4 right-1/4 md:right-[5%] w-[250px] h-[250px] md:w-[450px] md:h-[450px] bg-[#3B82F6] blur-[80px] md:blur-[120px] opacity-15 rounded-[40%_60%_70%_30%]"
         />
         <motion.div
           style={{

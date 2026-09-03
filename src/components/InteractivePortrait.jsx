@@ -58,6 +58,8 @@ const InteractivePortrait = () => {
       onTouchStart={(e) => handleInteraction(e.touches[0].clientX, e.touches[0].clientY)}
       onTouchMove={(e) => handleInteraction(e.touches[0].clientX, e.touches[0].clientY)}
       onTouchEnd={() => setIsHovered(false)}
+      // KUNCI PERBAIKAN: Browser membatalkan sentuhan saat layar mulai di-scroll. Kita wajib mematikan mesin render di sini!
+      onTouchCancel={() => setIsHovered(false)}
       className="relative w-full max-w-[480px] aspect-[4/5] mx-auto md:mr-0 group cursor-none outline-none rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/[0.08] to-transparent backdrop-blur-2xl backdrop-saturate-[2] shadow-[0_16px_40px_rgba(0,0,0,0.4)]"
       data-cursor="TOUCH"
     >
