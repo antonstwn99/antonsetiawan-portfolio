@@ -5,9 +5,20 @@ import { PROJECT_DATABASE } from '../data/portfolioData';
 const SelectedWork = () => {
   const [activeProject, setActiveProject] = useState(null);
   const [showAll, setShowAll] = useState(false);
-  const displayedProjects = showAll
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  // Mengekstrak semua kategori unik dari database secara otomatis
+  const categories = ['All', ...new Set(PROJECT_DATABASE.map(item => item.category))];
+
+  // Logika Filter: Jika "All" tampilkan semua (atau 5 jika tidak showAll), jika kategori spesifik tampilkan semua yang cocok
+  const filteredProjects = activeCategory === 'All'
     ? PROJECT_DATABASE
-    : PROJECT_DATABASE.slice(0, 5);
+    : PROJECT_DATABASE.filter(project => project.category === activeCategory);
+
+  const displayedProjects = (showAll || activeCategory !== 'All')
+    ? filteredProjects
+    : filteredProjects.slice(0, 5);
+
   const scrollContainerRef = useRef(null);
 
   useEffect(() => {
@@ -74,8 +85,33 @@ const SelectedWork = () => {
               </svg>
             </div>
           </button>
+
+          {/* Deretan Tombol Kategori Dinamis */}
+          <div className="mt-8 flex flex-wrap gap-2">
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => {
+                  setActiveCategory(category);
+                  // Otomatis kembalikan scroll ke paling kiri saat filter diganti
+                  if (scrollContainerRef.current) {
+                    scrollContainerRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+                  }
+                }}
+                className={`px-4 py-2 rounded-full text-xs font-body font-medium transition-all duration-300 outline-none ${
+                  activeCategory === category
+                    ? 'bg-[#143DED] text-white border border-[#143DED] shadow-[0_0_15px_rgba(20,61,237,0.4)]'
+                    : 'bg-transparent text-white/50 border border-white/10 hover:border-white/30 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="hidden xl:flex gap-4 mt-16">
+        
+        {/* mt-16 diubah ke mt-6 agar jarak antara filter dan panah lebih seimbang */}
+        <div className="hidden xl:flex gap-4 mt-6">
           <button
             onClick={() => scroll('left')}
             className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/5 hover:border-white/50 transition-all duration-300 group outline-none"
