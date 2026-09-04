@@ -4,14 +4,14 @@
 
 export const PROJECT_DATABASE = [
   {
-    id: 1,
+    id: 4,
     title: 'Creatone.id',
     category: 'Digital Branding',
     year: '2026',
     featured: true,
-    tools: ['Branding', 'Content Strategy', 'Canva', 'Social Media'],
+    tools: ['Graphic Design', 'Content Strategy', 'Branding', 'Social Media'],
     description:
-      'Platform dan inisiatif branding kreatif yang berfokus pada strategi media sosial, pembuatan konten, dan identitas visual perusahaan.',
+      'Platform dan inisiatif branding kreatif yang berfokus pada strategi media sosial, desain dan pembuatan konten.',
   },
   {
     id: 2,
@@ -29,19 +29,19 @@ export const PROJECT_DATABASE = [
     category: 'Aplikasi',
     year: '2026',
     featured: true,
-    tools: ['UI/UX', 'System Design', 'Figma', 'App Dev'],
+    tools: ['Flutter', 'Mobile App', 'Figma', 'Financial Tracker'],
     description:
-      'Aplikasi sistem yang dirancang untuk mempermudah pengaturan administrasi, tugas, dan workflow pengguna secara digital.',
+      'Aplikasi sistem yang dirancang untuk manajemen dan pengelolaan keuangan yang lebih cerdas dan teratur.',
   },
   {
-    id: 4,
+    id: 1,
     title: 'Stokin Aja',
     category: 'Aplikasi',
     year: '2026',
     featured: true,
-    tools: ['Figma', 'App Design', 'Data Management'],
+    tools: ['Progressive Web App', 'React Vite', 'Points of Sale'],
     description:
-      'Aplikasi inovatif yang dirancang untuk mengelola dan mengatur manajemen data stok/pengguna dengan lebih efisien.',
+      'Aplikasi inovatif yang dirancang untuk mengelola dan mengatur manajemen data stok/barang usaha dengan lebih efisien.',
   },
   {
     id: 5,
@@ -51,7 +51,7 @@ export const PROJECT_DATABASE = [
     featured: true,
     tools: ['Web Design', 'Frontend', 'Management'],
     description:
-      'Pengembangan platform website utama untuk Himpunan Mahasiswa Teknologi Rekayasa Multimedia Politeknik Hasnur.',
+      'Pengembangan platform website utama yang interaktif untuk Himpunan Mahasiswa Teknologi Rekayasa Multimedia Politeknik Hasnur.',
   },
   {
     id: 6,
@@ -71,7 +71,7 @@ export const PROJECT_DATABASE = [
     featured: true,
     tools: ['Unity', 'Game Design', 'C#', 'Canva'],
     description:
-      'Game simulasi 2D interaktif yang mengajak pemain untuk mengelola dan mengembangkan bisnis warung.',
+      'Game simulasi 2D interaktif yang mengajak pemain untuk bermain sambil belajar mengelola dan mengembangkan bisnis warung.',
   },
   {
     id: 8,
