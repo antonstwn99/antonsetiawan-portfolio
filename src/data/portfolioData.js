@@ -19,7 +19,7 @@ export const PROJECT_DATABASE = [
     category: 'Website',
     year: '2026',
     featured: true,
-    tools: ['Web Dev', 'React', 'HTML/CSS', 'JavaScript'],
+    tools: ['Web Dev', 'React Vite', 'Tech Agency', 'CMS'],
     description:
       'Pembuatan website resmi untuk Viska Labs Indonesia, berfokus pada inovasi teknologi dan layanan digital terdepan.',
   },
