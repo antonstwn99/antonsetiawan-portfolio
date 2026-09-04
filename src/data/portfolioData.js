@@ -67,7 +67,7 @@ export const PROJECT_DATABASE = [
     id: 7,
     title: 'Warung Tycoon',
     category: 'Game 2D',
-    year: '2025',
+    year: '2026',
     featured: true,
     tools: ['Unity', 'Game Design', 'C#', 'Canva'],
     description:
@@ -77,7 +77,7 @@ export const PROJECT_DATABASE = [
     id: 8,
     title: 'Darurat Nalar',
     category: 'Video Pendek',
-    year: '2026',
+    year: '2025',
     featured: true,
     tools: ['Video Director', 'CapCut', 'Storytelling'],
     description:
@@ -87,7 +87,7 @@ export const PROJECT_DATABASE = [
     id: 9,
     title: 'TRM Photoverse',
     category: 'Website',
-    year: '2025',
+    year: '2026',
     featured: false,
     tools: ['Web Design', 'Frontend', 'Backend'],
     description:
@@ -97,7 +97,7 @@ export const PROJECT_DATABASE = [
     id: 10,
     title: '3D Furniture AR',
     category: 'Animasi & 3D',
-    year: '2025',
+    year: '2026',
     featured: false,
     tools: ['Unity', '3D Modeling', 'Augmented Reality'],
     description:
@@ -151,7 +151,27 @@ export const PROJECT_DATABASE = [
     featured: false,
     tools: ['Figma', 'Visual Identity', 'Layouting'],
     description:
-      'Desain grafis dan identitas acara untuk event Leadcamp Politeknik Hasnur 2026.',
+      'Desain grafis, konten dan identitas visual acara untuk event Leadcamp Politeknik Hasnur 2026.',
+  },
+  {
+    id: 16,
+    title: 'Maskot & MC Virtual AI',
+    category: 'Animasi & 3D',
+    year: '2026',
+    featured: false,
+    tools: ['Prompt Engineering', '3D Modeling', '3D Animation'],
+    description:
+      'Maskot & MC Virtual berbasis 3D Model & Animasi AI pertama di Kalimantan Selatan pada acara The Technoprenur Park by Polihasnur & HUT Hasnur Group ke-60.',
+  },
+  {
+    id: 17,
+    title: 'Website PKKMB Polihasnur 2026',
+    category: 'Website',
+    year: '2026',
+    featured: false,
+    tools: ['Web Design', 'Frontend', 'Backend'],
+    description:
+      'Platform digital yang inovatif dan interaktif pertama pada event PKKMB Politeknik Hasnur 2026.',
   },
 ];
 
