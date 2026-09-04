@@ -4,14 +4,14 @@
 
 export const PROJECT_DATABASE = [
   {
-    id: 4,
-    title: 'Creatone.id',
-    category: 'Digital Branding',
+    id: 1,
+    title: 'Stokin Aja',
+    category: 'Aplikasi',
     year: '2026',
     featured: true,
-    tools: ['Graphic Design', 'Content Strategy', 'Branding', 'Social Media'],
+    tools: ['Progressive Web App', 'React Vite', 'Points of Sale'],
     description:
-      'Platform dan inisiatif branding kreatif yang berfokus pada strategi media sosial, desain dan pembuatan konten.',
+      'Aplikasi inovatif yang dirancang untuk mengelola dan mengatur manajemen data stok/barang usaha dengan lebih efisien.',
   },
   {
     id: 2,
@@ -34,14 +34,14 @@ export const PROJECT_DATABASE = [
       'Aplikasi sistem yang dirancang untuk manajemen dan pengelolaan keuangan yang lebih cerdas dan teratur.',
   },
   {
-    id: 1,
-    title: 'Stokin Aja',
-    category: 'Aplikasi',
+    id: 4,
+    title: 'Creatone.id',
+    category: 'Digital Branding',
     year: '2026',
     featured: true,
-    tools: ['Progressive Web App', 'React Vite', 'Points of Sale'],
+    tools: ['Graphic Design', 'Content Strategy', 'Branding', 'Social Media'],
     description:
-      'Aplikasi inovatif yang dirancang untuk mengelola dan mengatur manajemen data stok/barang usaha dengan lebih efisien.',
+      'Platform dan inisiatif branding kreatif yang berfokus pada strategi media sosial, desain dan pembuatan konten.',
   },
   {
     id: 5,
@@ -139,7 +139,7 @@ export const PROJECT_DATABASE = [
     category: 'Desain Grafis',
     year: '2025',
     featured: false,
-    tools: ['Graphic Design', 'Brand Identity', 'Canva/Figma'],
+    tools: ['Graphic Design', 'Brand Identity', 'Canva'],
     description:
       'Pembuatan aset visual, poster, dan materi branding untuk ajang Duta Pelajar Kota Banjarmasin 2025.',
   },
@@ -151,7 +151,7 @@ export const PROJECT_DATABASE = [
     featured: false,
     tools: ['Figma', 'Visual Identity', 'Layouting'],
     description:
-      'Desain grafis dan identitas acara untuk event Leadcamp Politeknik Hasnur 2025.',
+      'Desain grafis dan identitas acara untuk event Leadcamp Politeknik Hasnur 2026.',
   },
 ];
 
