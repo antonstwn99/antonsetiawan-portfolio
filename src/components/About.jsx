@@ -141,15 +141,16 @@ const About = () => {
         className="w-full lg:w-[36%] flex justify-center py-10 relative lg:self-center aspect-square md:aspect-[4/5] lg:aspect-square group cursor-none outline-none"
         data-cursor="3D MASCOT"
       >
-        {/* Latar Belakang Cahaya Aura Canggih */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-[#143DED] blur-[100px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 rounded-full animate-pulse pointer-events-none" />
+        {/* Latar Belakang Cahaya Putih Futuristik (Core Halo) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] h-[55%] bg-white/25 blur-[65px] rounded-full pointer-events-none mix-blend-screen animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75%] h-[75%] bg-[#143DED] blur-[90px] opacity-30 rounded-full pointer-events-none" />
         
         {/* Lingkaran Orbit Tipis (Menjaga Vibe Tech) */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30 group-hover:opacity-60 transition-opacity duration-700">
-          <motion.div animate={{ rotate: 360 }} transition={{ duration: 25, repeat: Infinity, ease: 'linear' }} className="absolute w-[240px] sm:w-[300px] xl:w-[380px] h-[240px] sm:h-[300px] xl:h-[380px] rounded-full border border-[#143DED]/20 border-dashed" />
+          <motion.div animate={{ rotate: 360 }} transition={{ duration: 25, repeat: Infinity, ease: 'linear' }} className="absolute w-[240px] sm:w-[300px] xl:w-[380px] h-[240px] sm:h-[300px] xl:h-[380px] rounded-full border border-white/30 border-dashed" />
         </div>
 
-        {/* Kanvas 3D Objek Wajah - Menggunakan Overlay DOM (Bukan CSS Mask) agar GPU Mobile tidak Crash */}
+        {/* Kanvas 3D Objek Wajah */}
         <div className="relative z-10 w-full h-full">
         <Canvas 
             camera={{ position: [0, 0, 5.5], fov: 45 }}
@@ -157,9 +158,12 @@ const About = () => {
             performance={{ min: 0.5 }}
             gl={{ antialias: false, powerPreference: "high-performance", alpha: true }}
           >
-            <ambientLight intensity={0.8} />
+            <ambientLight intensity={1.1} />
             <spotLight position={[5, 10, 10]} angle={0.25} penumbra={1} intensity={2} color="#ffffff" />
             <spotLight position={[-10, -5, 5]} angle={0.5} penumbra={1} intensity={1} color="#143DED" />
+            
+            {/* RIM LIGHT PUTIH FUTURISTIK: Menyinari siluet rambut dan kepala dari belakang */}
+            <pointLight position={[0, 1.5, -2.5]} intensity={4} color="#ffffff" />
             
             <OrbitControls 
               enableZoom={false} 
@@ -180,22 +184,8 @@ const About = () => {
             }>
               <AntonMascotModel />
               <Environment preset="city" />
-              
-              {/* OPTIMASI: frames={1} mencegah render ulang bayangan setiap detik */}
-              <ContactShadows 
-                position={[0, -2.5, 0]} 
-                opacity={0.4} 
-                scale={15} 
-                blur={2.5} 
-                far={4} 
-                frames={1} 
-                resolution={256} 
-              />
             </Suspense>
           </Canvas>
-          
-          {/* FAKE MASK: Gradien fisik untuk menyamarkan potongan bawah (0% beban GPU dibanding CSS Mask) */}
-          <div className="absolute bottom-0 left-0 w-full h-[35%] bg-gradient-to-t from-[#05070D] via-[#05070D]/80 to-transparent pointer-events-none" />
         </div>
       </div>
 
@@ -224,7 +214,7 @@ const About = () => {
         </div>
 
         {/* Futuristic Skill Bars (Lightweight & No Recharts) */}
-        <div className="w-full bg-gradient-to-br from-white/[0.04] to-transparent border border-white/10 rounded-2xl p-6 backdrop-blur-2xl backdrop-saturate-[2] shadow-[0_8px_32px_rgba(0,0,0,0.2)] flex-grow flex flex-col hover:border-white/20 transition-all duration-500">
+        <div className="w-full bg-[#080D18] md:bg-gradient-to-br md:from-white/[0.04] md:to-transparent border border-white/10 rounded-2xl p-6 md:backdrop-blur-2xl md:backdrop-saturate-[2] shadow-[0_8px_32px_rgba(0,0,0,0.2)] flex-grow flex flex-col hover:border-white/20 transition-all duration-500">
           <div className="flex items-center justify-between mb-6">
             <h4 className="font-body text-[10px] text-[#143DED] uppercase tracking-widest font-bold">
               Core Competencies
@@ -245,8 +235,8 @@ const About = () => {
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.A}%` }}
-                    viewport={{ once: true, margin: '-50px' }}
-                    transition={{ duration: 1.2, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 1, delay: 0.15 + (i * 0.08), ease: [0.16, 1, 0.3, 1] }}
                     className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#143DED] to-cyan-400 rounded-full"
                   >
                     {/* Glowing dot di ujung bar */}
