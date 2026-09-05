@@ -279,3 +279,18 @@ export const SKILL_METRICS = [
   { subject: 'AI Prompting', A: 86, fullMark: 100 },
   { subject: 'Game (Unity)', A: 80, fullMark: 100 },
 ];
+
+export const PARTNERS_DATA = [
+  { name: 'HIMA TRM', logo: null },
+  { name: 'TRM Polihasnur', logo: null },
+  { name: 'TRM Project', logo: null },
+  { name: 'BEM Polhas', logo: null },
+  { name: 'Politeknik Hasnur', logo: null },
+  { name: 'The Technopreneur Park', logo: null },
+  { name: 'Stokin Aja', logo: null },
+  { name: 'Kita Atur', logo: null },
+  { name: 'Viska Labs Indonesia', logo: null },
+  { name: 'Duta Pelajar Banjarmasin', logo: null },
+  { name: 'Creatone.id', logo: null },
+  { name: 'Hasnur Centre', logo: null },
+];

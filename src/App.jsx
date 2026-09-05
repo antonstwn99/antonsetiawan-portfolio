@@ -5,6 +5,7 @@ import Lenis from '@studio-freight/lenis';
 import CustomCursor from './components/CustomCursor';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
+import PartnersMarquee from './components/PartnersMarquee';
 import SelectedWork from './components/SelectedWork';
 import About from './components/About';
 import Capabilities from './components/Capabilities';
@@ -59,6 +60,7 @@ export default function App() {
       <MusicPlayer />
       <main>
         <Hero />
+        <PartnersMarquee />
         <SelectedWork />
         <About />
         <Capabilities />
