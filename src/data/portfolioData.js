@@ -281,10 +281,10 @@ export const SKILL_METRICS = [
 ];
 
 export const PARTNERS_DATA = [
-  { name: 'HIMA TRM', logo: null },
+  { name: 'HIMA TRM Polihasnur', logo: null },
   { name: 'TRM Polihasnur', logo: null },
   { name: 'TRM Project', logo: null },
-  { name: 'BEM Polhas', logo: null },
+  { name: 'BEM Polihasnur', logo: null },
   { name: 'Politeknik Hasnur', logo: null },
   { name: 'The Technopreneur Park', logo: null },
   { name: 'Stokin Aja', logo: null },
