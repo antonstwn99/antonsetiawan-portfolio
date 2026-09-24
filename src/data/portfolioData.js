@@ -174,7 +174,7 @@ export const PROJECT_DATABASE = [
       'Platform digital yang inovatif dan interaktif pertama pada event PKKMB Politeknik Hasnur 2026.',
   },
   {
-    id: 16,
+    id: 18,
     title: 'PKKMB Politeknik Hasnur',
     category: ['Desain Grafis', 'Digital Branding'],
     year: '2026',

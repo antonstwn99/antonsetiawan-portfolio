@@ -7,13 +7,19 @@ const SelectedWork = () => {
   const [showAll, setShowAll] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
 
-  // Mengekstrak semua kategori unik dari database secara otomatis
-  const categories = ['All', ...new Set(PROJECT_DATABASE.map(item => item.category))];
+  // Mengekstrak semua kategori unik dari database secara otomatis (Mendukung String maupun Array)
+  const categories = ['All', ...new Set(PROJECT_DATABASE.flatMap(item => 
+    Array.isArray(item.category) ? item.category : [item.category]
+  ))];
 
-  // Logika Filter: Jika "All" tampilkan semua (atau 5 jika tidak showAll), jika kategori spesifik tampilkan semua yang cocok
+  // Logika Filter: Jika "All" tampilkan semua, jika spesifik cari apakah kategori tersebut ada di dalam Array/String
   const filteredProjects = activeCategory === 'All'
     ? PROJECT_DATABASE
-    : PROJECT_DATABASE.filter(project => project.category === activeCategory);
+    : PROJECT_DATABASE.filter(project => 
+        Array.isArray(project.category) 
+          ? project.category.includes(activeCategory) 
+          : project.category === activeCategory
+      );
 
   const displayedProjects = (showAll || activeCategory !== 'All')
     ? filteredProjects
@@ -219,7 +225,7 @@ const SelectedWork = () => {
                     {project.title}
                   </h3>
                   <p className="font-body text-sm text-white/50">
-                    {project.category}
+                    {Array.isArray(project.category) ? project.category.join(' & ') : project.category}
                   </p>
                 </div>
                 <div className="flex flex-col items-end gap-3">
@@ -286,7 +292,7 @@ const SelectedWork = () => {
                 </svg>
               </button>
               <span className="text-[#143DED] text-xs font-semibold tracking-widest uppercase mb-3 block mt-2 md:mt-0 pr-8">
-                {activeProject.category} • {activeProject.year}
+                {Array.isArray(activeProject.category) ? activeProject.category.join(' & ') : activeProject.category} • {activeProject.year}
               </span>
               <h3 className="font-heading text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6 leading-tight">
                 {activeProject.title}
