@@ -136,7 +136,7 @@ export const PROJECT_DATABASE = [
   {
     id: 14,
     title: 'Duta Pelajar Banjarmasin 2025',
-    category: 'Desain Grafis',
+    category: ['Desain Grafis', 'Digital Branding'],
     year: '2025',
     featured: false,
     tools: ['Graphic Design', 'Brand Identity', 'Canva'],
@@ -146,7 +146,7 @@ export const PROJECT_DATABASE = [
   {
     id: 15,
     title: 'Leadcamp Politeknik Hasnur 2026',
-    category: 'Desain Grafis',
+    category: ['Desain Grafis', 'Digital Branding'],
     year: '2026',
     featured: false,
     tools: ['Figma', 'Visual Identity', 'Layouting'],
@@ -172,6 +172,16 @@ export const PROJECT_DATABASE = [
     tools: ['Web Design', 'Frontend', 'Backend'],
     description:
       'Platform digital yang inovatif dan interaktif pertama pada event PKKMB Politeknik Hasnur 2026.',
+  },
+  {
+    id: 16,
+    title: 'PKKMB Politeknik Hasnur',
+    category: ['Desain Grafis', 'Digital Branding'],
+    year: '2026',
+    featured: false,
+    tools: ['Graphic Design', 'Visual Identity', 'Event Branding'],
+    description:
+      'Pembuatan aset visual, identitas acara, dan materi desain grafis untuk kegiatan Pengenalan Kehidupan Kampus bagi Mahasiswa Baru (PKKMB) Politeknik Hasnur tahun akademik 2026/2027.',
   },
 ];
 
@@ -278,6 +288,16 @@ export const SKILL_METRICS = [
   { subject: 'Brand & Content', A: 90, fullMark: 100 },
   { subject: 'AI Prompting', A: 86, fullMark: 100 },
   { subject: 'Game (Unity)', A: 80, fullMark: 100 },
+];
+
+export const EDUCATION_DATA = [
+  {
+    year: '2024 - Sekarang',
+    degree: 'D4 Teknologi Rekayasa Multimedia',
+    institution: 'Politeknik Hasnur',
+    gpa: '3.92',
+    desc: 'Pemegang Beasiswa Unggulan dari Yayasan Hasnur Centre. Fokus memperdalam perancangan produk end-to-end, logika rekayasa perangkat lunak, dan estetika desain visual.',
+  },
 ];
 
 export const PARTNERS_DATA = [
