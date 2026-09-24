@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import InteractivePortrait from './InteractivePortrait';
+// Impor database untuk menghitung total proyek otomatis
+import { PROJECT_DATABASE } from '../data/portfolioData';
 
 const Hero = () => {
   const { scrollY } = useScroll();
@@ -101,13 +103,15 @@ const Hero = () => {
           className="flex items-center gap-6 md:gap-10 border-t border-white/10 pt-6 w-full max-w-[420px]"
         >
           <div>
-            <h4 className="font-heading text-2xl font-bold text-white">4+</h4>
+            {/* Hitung otomatis: Tahun sekarang dikurang 2022 (tahun mulai karir freelance) */}
+            <h4 className="font-heading text-2xl font-bold text-white">{new Date().getFullYear() - 2022}+</h4>
             <p className="font-body text-[10px] text-white/50 uppercase tracking-widest">
               Years Exp.
             </p>
           </div>
           <div>
-            <h4 className="font-heading text-2xl font-bold text-white">15+</h4>
+            {/* Hitung otomatis: Menampilkan jumlah persis dari isi array PROJECT_DATABASE */}
+            <h4 className="font-heading text-2xl font-bold text-white">{PROJECT_DATABASE.length}+</h4>
             <p className="font-body text-[10px] text-white/50 uppercase tracking-widest">
               Projects
             </p>
