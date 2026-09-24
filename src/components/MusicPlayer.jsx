@@ -34,11 +34,12 @@ const MusicPlayer = () => {
           <div className="absolute inset-0 rounded-full bg-[#143DED] blur-md opacity-30 animate-pulse"></div>
         )}
         
-        {/* Ikon Waveform Interaktif (CPU Optimized) */}
+        {/* Ikon Waveform Interaktif (GPU Optimized & Anti-Lag) */}
         <div className="relative z-10 flex items-center gap-[2px] h-4">
-          <motion.div animate={{ height: isPlaying ? ['4px', '16px', '6px', '12px'] : '4px' }} transition={isPlaying ? { repeat: Infinity, duration: 0.5, ease: 'easeInOut' } : { duration: 0.3 }} className={`w-1 rounded-full ${isPlaying ? 'bg-[#143DED]' : 'bg-white/50 group-hover:bg-white'}`}></motion.div>
-          <motion.div animate={{ height: isPlaying ? ['8px', '4px', '14px', '4px'] : '8px' }} transition={isPlaying ? { repeat: Infinity, duration: 0.6, ease: 'easeInOut' } : { duration: 0.3 }} className={`w-1 rounded-full ${isPlaying ? 'bg-cyan-400' : 'bg-white/50 group-hover:bg-white'}`}></motion.div>
-          <motion.div animate={{ height: isPlaying ? ['14px', '8px', '16px', '8px'] : '4px' }} transition={isPlaying ? { repeat: Infinity, duration: 0.4, ease: 'easeInOut' } : { duration: 0.3 }} className={`w-1 rounded-full ${isPlaying ? 'bg-[#143DED]' : 'bg-white/50 group-hover:bg-white'}`}></motion.div>
+          {/* OPTIMASI: Menggunakan scaleY alih-alih height untuk menghindari Layout Thrashing saat scroll */}
+          <motion.div animate={{ scaleY: isPlaying ? [0.3, 1, 0.4, 0.8] : 0.3 }} transition={isPlaying ? { repeat: Infinity, duration: 0.5, ease: 'easeInOut' } : { duration: 0.3 }} className={`w-1 h-full rounded-full origin-center ${isPlaying ? 'bg-[#143DED]' : 'bg-white/50 group-hover:bg-white'}`}></motion.div>
+          <motion.div animate={{ scaleY: isPlaying ? [0.5, 0.3, 0.9, 0.3] : 0.5 }} transition={isPlaying ? { repeat: Infinity, duration: 0.6, ease: 'easeInOut' } : { duration: 0.3 }} className={`w-1 h-full rounded-full origin-center ${isPlaying ? 'bg-cyan-400' : 'bg-white/50 group-hover:bg-white'}`}></motion.div>
+          <motion.div animate={{ scaleY: isPlaying ? [0.9, 0.5, 1, 0.5] : 0.3 }} transition={isPlaying ? { repeat: Infinity, duration: 0.4, ease: 'easeInOut' } : { duration: 0.3 }} className={`w-1 h-full rounded-full origin-center ${isPlaying ? 'bg-[#143DED]' : 'bg-white/50 group-hover:bg-white'}`}></motion.div>
         </div>
       </button>
 
