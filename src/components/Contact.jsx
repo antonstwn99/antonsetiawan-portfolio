@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import antonLogo from '../assets/anton/anton-logo.png';
 
 const Contact = () => {
