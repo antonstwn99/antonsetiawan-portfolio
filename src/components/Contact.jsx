@@ -3,18 +3,27 @@ import antonLogo from '../assets/anton/anton-logo.png';
 
 const Contact = () => {
   const [isCopied, setIsCopied] = useState(false);
+  const copyTimeoutRef = useRef(null);
 
   const handleCopyEmail = async (e) => {
     e.preventDefault();
     try {
       await navigator.clipboard.writeText('antonstwn604@gmail.com');
       setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
+      
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+      copyTimeoutRef.current = setTimeout(() => setIsCopied(false), 2000);
     } catch (err) {
       console.error('Gagal menyalin email:', err);
       // Anda bisa menambahkan notifikasi Toast "Gagal" di sini kelak
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+    };
+  }, []);
 
   return (
     <footer

@@ -183,6 +183,16 @@ export const PROJECT_DATABASE = [
     description:
       'Pembuatan aset visual, identitas acara, dan materi desain grafis untuk kegiatan Pengenalan Kehidupan Kampus bagi Mahasiswa Baru (PKKMB) Politeknik Hasnur tahun akademik 2026/2027.',
   },
+  {
+    id: 19,
+    title: 'TLC by HAFECS',
+    category: ['Desain Grafis', 'Digital Branding'],
+    year: '2025',
+    featured: false,
+    tools: ['Brand Identity', 'Visual Design', 'Social Media'],
+    description:
+      'Perancangan identitas visual, materi desain grafis, dan manajemen konten media sosial untuk institusi Teaching Learning & Certification (TLC) by HAFECS, Yayasan Hasnur Centre.',
+  },
 ];
 
 export const EXPERIENCE_DATA = [

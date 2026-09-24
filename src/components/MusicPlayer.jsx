@@ -5,6 +5,7 @@ const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const audioRef = useRef(null);
+  const popupTimeoutRef = useRef(null);
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -14,10 +15,21 @@ const MusicPlayer = () => {
       audioRef.current.play();
       setIsPlaying(true);
       setShowPopup(true);
+      
+      // Bersihkan timer lama jika pengguna mengklik dengan cepat (Anti-Glitch)
+      if (popupTimeoutRef.current) clearTimeout(popupTimeoutRef.current);
+      
       // Sembunyikan hologram setelah 4 detik
-      setTimeout(() => setShowPopup(false), 4000);
+      popupTimeoutRef.current = setTimeout(() => setShowPopup(false), 4000);
     }
   };
+
+  // Cleanup: Hapus timer dari memori jika pengguna menutup/meninggalkan website
+  useEffect(() => {
+    return () => {
+      if (popupTimeoutRef.current) clearTimeout(popupTimeoutRef.current);
+    };
+  }, []);
 
   return (
     <div className="fixed bottom-6 left-6 md:bottom-8 md:left-8 z-[90] flex items-end gap-4 pointer-events-none">
