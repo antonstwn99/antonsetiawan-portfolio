@@ -33,7 +33,7 @@ const Capabilities = () => {
     },
     {
       id: 5,
-      label: 'Game Dev\n(Unity)',
+      label: 'Game & AR Dev\n(Unity)',
       icon: <Box strokeWidth={1.5} size={24} />,
     },
     {

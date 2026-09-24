@@ -62,17 +62,22 @@ const About = () => {
             </h4>
             <div className="flex flex-wrap gap-2">
               {[
-                'UI/UX Design',
+                'Visual Design',
                 'Brand Identity',
+                'Social Media Management',
+                'Content Plan & Strategy',
                 'Web Development',
                 'App Development',
                 'Game Development',
                 'Data Analytics',
                 'Video Production',
                 '3D & Animation',
+                'Augmented Reality',
                 'AI Prompting',
-                'React Ecosystem',
-                'Figma',
+                'Data Management',
+                'IT Support',
+                'Canva & Figma',
+                'Unity',
               ].map((skill) => (
                 <span
                   key={skill}

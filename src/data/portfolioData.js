@@ -283,11 +283,14 @@ export const ACHIEVEMENTS_DATA = [
 
 export const SKILL_METRICS = [
   { subject: 'Video & Animasi', A: 82, fullMark: 100 },
-  { subject: 'UI/UX & Grafis', A: 87, fullMark: 100 },
+  { subject: 'UI/UX & Desain Grafis', A: 87, fullMark: 100 },
   { subject: 'Web & App Dev', A: 84, fullMark: 100 },
   { subject: 'Brand & Content', A: 90, fullMark: 100 },
   { subject: 'AI Prompting', A: 86, fullMark: 100 },
   { subject: 'Game (Unity)', A: 80, fullMark: 100 },
+  { subject: 'Augmented Reality (Unity)', A: 80, fullMark: 100 },
+  { subject: 'IT Support', A: 86, fullMark: 100 },
+  { subject: 'Data Management', A: 87, fullMark: 100 },
 ];
 
 export const EDUCATION_DATA = [
