@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Lenis from '@studio-freight/lenis';
 
-// Import semua komponen yang sudah kita potong
+// Import komponen utama
 import CustomCursor from './components/CustomCursor';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
@@ -14,9 +15,11 @@ import Process from './components/Process';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import MusicPlayer from './components/MusicPlayer';
+// Import komponen Admin yang baru dibuat
+import Admin from './components/Admin';
 
-export default function App() {
-  // Inisialisasi Smooth Scrolling (Lenis) & Navigasi
+// 1. BUNGKUS HALAMAN PORTOFOLIO UTAMA (PUBLIK)
+const PortfolioMain = () => {
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -48,7 +51,7 @@ export default function App() {
 
     return () => {
       lenis.destroy();
-      cancelAnimationFrame(rafId); // INI KUNCI UTAMANYA: Mematikan mesin saat reload!
+      cancelAnimationFrame(rafId);
       document.removeEventListener('click', handleAnchorClick);
     };
   }, []);
@@ -70,5 +73,17 @@ export default function App() {
         <Contact />
       </main>
     </div>
+  );
+};
+
+// 3. PENGATUR JALUR (ROUTER) UTAMA
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<PortfolioMain />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+    </Router>
   );
 }
