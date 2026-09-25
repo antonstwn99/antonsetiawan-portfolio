@@ -56,16 +56,16 @@ const Experience = () => {
                       IPK: {item.gpa}
                     </div>
                     
-                    {/* MODIFIKASI: Menambahkan Logo Education */}
-                    <div className="flex items-center gap-4 mb-4">
+                    {/* MODIFIKASI: Layout Logo Education yang Lebih Clean */}
+                    <div className="flex items-start gap-4 mb-5 relative z-10 pt-2">
                       {item.logo && (
-                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 border border-white/10 p-2 flex items-center justify-center shrink-0 shadow-lg">
-                          <img src={item.logo} alt={item.institution} className="w-full h-full object-contain" />
+                        <div className="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-xl overflow-hidden border border-white/10 bg-transparent flex items-center justify-center shadow-lg">
+                          <img src={item.logo} alt={item.institution} className="w-full h-full object-cover" />
                         </div>
                       )}
-                      <div>
-                        <h3 className="font-heading text-xl md:text-2xl font-bold text-white mb-1">{item.degree}</h3>
-                        <p className="font-body text-sm font-bold text-[#143DED]">{item.institution}</p>
+                      <div className="flex-1 pt-1 pr-8">
+                        <h3 className="font-heading text-lg md:text-xl font-bold text-white leading-tight mb-1.5">{item.degree}</h3>
+                        <p className="font-body text-sm font-semibold text-[#143DED]">{item.institution}</p>
                       </div>
                     </div>
 
@@ -102,17 +102,17 @@ const Experience = () => {
                     </div>
                     <div className="md:hidden w-8 h-[1px] bg-[#143DED]/50 mb-4"></div>
                     
-                    {/* MODIFIKASI: Menambahkan Logo Experience */}
-                    <div className="flex items-start gap-4 mb-4">
+                    {/* MODIFIKASI: Layout Logo Experience yang Lebih Clean */}
+                    <div className="flex items-start gap-4 mb-5">
                       {item.logo && (
-                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 p-1.5 flex items-center justify-center shrink-0 mt-1 shadow-lg group-hover:border-[#143DED]/50 transition-colors">
-                           <img src={item.logo} alt={item.title} className="w-full h-full object-contain" />
+                        <div className="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-xl overflow-hidden border border-white/10 bg-transparent flex items-center justify-center shadow-lg group-hover:border-[#143DED]/50 transition-colors">
+                           <img src={item.logo} alt={item.title} className="w-full h-full object-cover" />
                         </div>
                       )}
-                      <div>
-                        <h3 className="font-heading text-xl md:text-2xl font-semibold text-[#143DED] mb-1">{item.year}</h3>
-                        <p className="font-body text-sm font-bold text-white mb-1">{item.title}</p>
-                        <p className="font-body text-xs text-white/50 uppercase tracking-widest">{item.role}</p>
+                      <div className="flex-1 pt-0.5">
+                        <h3 className="font-heading text-xl font-bold text-[#143DED] leading-tight mb-1.5">{item.year}</h3>
+                        <p className="font-body text-sm md:text-base font-bold text-white mb-1">{item.title}</p>
+                        <p className="font-body text-[10px] text-white/50 uppercase tracking-widest">{item.role}</p>
                       </div>
                     </div>
 
