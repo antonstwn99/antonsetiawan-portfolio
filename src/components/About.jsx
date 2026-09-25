@@ -1,22 +1,15 @@
-import React, { useRef, Suspense } from 'react';
+import React, { useRef, Suspense, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Float, Environment, ContactShadows, OrbitControls, Html } from '@react-three/drei';
-import { SKILL_METRICS } from '../data/portfolioData';
+import { Canvas } from '@react-three/fiber';
+import { useGLTF, Float, Environment, OrbitControls, Html } from '@react-three/drei';
+import { supabase } from '../lib/supabase';
 import mascotGlb from '../assets/anton/antons-mascot.glb';
 
 // Komponen Pembaca File GLB
 const AntonMascotModel = () => {
   const { scene } = useGLTF(mascotGlb);
-  const meshRef = useRef();
-
   return (
-    <Float 
-      speed={2.5} 
-      rotationIntensity={0.5} 
-      floatIntensity={1}
-      floatingRange={[-0.1, 0.1]}
-    >
+    <Float speed={2.5} rotationIntensity={0.5} floatIntensity={1} floatingRange={[-0.1, 0.1]}>
       <primitive object={scene} scale={1.8} position={[0, 0.15, 0]} />
     </Float>
   );
@@ -26,29 +19,31 @@ const AntonMascotModel = () => {
 useGLTF.preload(mascotGlb);
 
 const About = () => {
+  const [skills, setSkills] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSkills = async () => {
+      const { data } = await supabase
+        .from('skills')
+        .select('*')
+        .order('id', { ascending: true });
+      if (data) setSkills(data);
+      setIsLoading(false);
+    };
+    fetchSkills();
+  }, []);
+
   return (
-    <section
-      id="about"
-      className="py-24 px-6 md:px-16 flex flex-col lg:flex-row items-center lg:items-stretch xl:items-center justify-between gap-12 lg:gap-6 xl:gap-8 overflow-hidden relative"
-    >
+    <section id="about" className="py-24 px-6 md:px-16 flex flex-col lg:flex-row items-center lg:items-stretch xl:items-center justify-between gap-12 lg:gap-6 xl:gap-8 overflow-hidden relative">
       {/* KIRI: Teks & Skill Tags */}
-      <motion.div
-        initial={{ opacity: 0, x: -30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full lg:w-[32%] flex flex-col items-start text-left relative z-10"
-      >
+      <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className="w-full lg:w-[32%] flex flex-col items-start text-left relative z-10">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-2 h-2 rounded-full bg-[#143DED]"></div>
-          <span className="font-body text-xs font-semibold tracking-widest uppercase text-white/50">
-            About Me
-          </span>
+          <span className="font-body text-xs font-semibold tracking-widest uppercase text-white/50">About Me</span>
         </div>
         <h2 className="font-heading text-4xl md:text-5xl font-bold leading-[1.1] text-white mb-6">
-          I blend <span className="text-[#143DED]">creativity</span>
-          <br />
-          with technology<span className="text-[#143DED]">.</span>
+          I blend <span className="text-[#143DED]">creativity</span><br />with technology<span className="text-[#143DED]">.</span>
         </h2>
         <p className="font-body text-white/70 text-sm md:text-base mb-8 leading-relaxed">
           Sebagai mahasiswa Teknologi Rekayasa Multimedia di Politeknik Hasnur, saya memposisikan diri di persimpangan antara seni dan kode. Saya berfokus pada perancangan produk end-to-end, memastikan setiap piksel memiliki tujuan dan setiap baris program memberikan performa optimal.
@@ -57,133 +52,50 @@ const About = () => {
         {/* Hard & Soft Skills Labels */}
         <div className="mb-8 w-full">
           <div className="mb-5">
-            <h4 className="font-body text-[10px] text-[#143DED] font-bold uppercase tracking-widest mb-3">
-              Hard Skills & Tools
-            </h4>
+            <h4 className="font-body text-[10px] text-[#143DED] font-bold uppercase tracking-widest mb-3">Hard Skills & Tools</h4>
             <div className="flex flex-wrap gap-2">
-              {[
-                'Visual Design',
-                'Brand Identity',
-                'Social Media Management',
-                'Content Plan & Strategy',
-                'Web Development',
-                'App Development',
-                'Game Development',
-                'Data Analytics',
-                'Video Production',
-                '3D & Animation',
-                'Augmented Reality',
-                'AI Prompting',
-                'Data Management',
-                'IT Support',
-                'Canva & Figma',
-                'Unity',
-              ].map((skill) => (
-                <span
-                  key={skill}
-                  className="text-[10px] sm:text-xs font-medium bg-[#143DED]/10 text-[#143DED] px-3 py-1.5 rounded-md border border-[#143DED]/20"
-                >
-                  {skill}
-                </span>
+              {['Visual Design', 'Brand Identity', 'Social Media Management', 'Content Plan & Strategy', 'Web Development', 'App Development', 'Game Development', 'Data Analytics', 'Video Production', '3D & Animation', 'Augmented Reality', 'AI Prompting', 'Data Management', 'IT Support', 'Canva & Figma', 'Unity'].map((skill) => (
+                <span key={skill} className="text-[10px] sm:text-xs font-medium bg-[#143DED]/10 text-[#143DED] px-3 py-1.5 rounded-md border border-[#143DED]/20">{skill}</span>
               ))}
             </div>
           </div>
           <div>
-            <h4 className="font-body text-[10px] text-white/50 uppercase tracking-widest mb-3">
-              Soft Skills
-            </h4>
+            <h4 className="font-body text-[10px] text-white/50 uppercase tracking-widest mb-3">Soft Skills</h4>
             <div className="flex flex-wrap gap-2">
-              {[
-                'Communication',
-                'Professional Ethics',
-                'Public Speaking',
-                'Problem Solving',
-                'Critical Thinking',
-                'Teamwork',
-                'Adaptability',
-                'Task Management',
-                'Creative Thinking',
-              ].map((skill) => (
-                <span
-                  key={skill}
-                  className="text-[10px] sm:text-xs font-medium bg-white/5 text-white/80 px-3 py-1.5 rounded-md border border-white/10"
-                >
-                  {skill}
-                </span>
+              {['Communication', 'Professional Ethics', 'Public Speaking', 'Problem Solving', 'Critical Thinking', 'Teamwork', 'Adaptability', 'Task Management', 'Creative Thinking'].map((skill) => (
+                <span key={skill} className="text-[10px] sm:text-xs font-medium bg-white/5 text-white/80 px-3 py-1.5 rounded-md border border-white/10">{skill}</span>
               ))}
             </div>
           </div>
         </div>
 
-        <a
-          href="#experience"
-          className="group flex items-center w-fit gap-4 bg-transparent border border-white/20 hover:border-white/50 pl-6 pr-2 py-2 rounded-full transition-all duration-300"
-        >
-          <span className="font-body text-sm font-medium text-white group-hover:text-[#143DED] transition-colors duration-300">
-            More about me
-          </span>
+        <a href="#experience" className="group flex items-center w-fit gap-4 bg-transparent border border-white/20 hover:border-white/50 pl-6 pr-2 py-2 rounded-full transition-all duration-300">
+          <span className="font-body text-sm font-medium text-white group-hover:text-[#143DED] transition-colors duration-300">More about me</span>
           <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#143DED]/10 transition-colors duration-300">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="group-hover:stroke-[#143DED] transition-colors duration-300"
-            >
-              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-[#143DED] transition-colors duration-300"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
           </div>
         </a>
       </motion.div>
 
       {/* TENGAH: Animasi GLB Maskot 3D */}
-      <div 
-        className="w-full lg:w-[36%] flex justify-center py-10 relative lg:self-center aspect-square md:aspect-[4/5] lg:aspect-square group cursor-none outline-none"
-        data-cursor="3D MASCOT"
-      >
-        {/* Latar Belakang Cahaya Putih Futuristik (Core Halo) */}
+      <div className="w-full lg:w-[36%] flex justify-center py-10 relative lg:self-center aspect-square md:aspect-[4/5] lg:aspect-square group cursor-none outline-none" data-cursor="3D MASCOT">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] h-[55%] bg-white/25 blur-[65px] rounded-full pointer-events-none mix-blend-screen animate-pulse" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75%] h-[75%] bg-[#143DED] blur-[90px] opacity-30 rounded-full pointer-events-none" />
-        
-        {/* Lingkaran Orbit Tipis (Menjaga Vibe Tech) */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30 group-hover:opacity-60 transition-opacity duration-700">
           <motion.div animate={{ rotate: 360 }} transition={{ duration: 25, repeat: Infinity, ease: 'linear' }} className="absolute w-[240px] sm:w-[300px] xl:w-[380px] h-[240px] sm:h-[300px] xl:h-[380px] rounded-full border border-white/30 border-dashed" />
         </div>
-
-        {/* Kanvas 3D Objek Wajah */}
         <div className="relative z-10 w-full h-full">
-        <Canvas 
-            camera={{ position: [0, 0, 5.5], fov: 45 }}
-            dpr={[1, 1.5]} 
-            performance={{ min: 0.5 }}
-            gl={{ antialias: false, powerPreference: "high-performance", alpha: true }}
-          >
+          <Canvas camera={{ position: [0, 0, 5.5], fov: 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }} gl={{ antialias: false, powerPreference: "high-performance", alpha: true }}>
             <ambientLight intensity={1.1} />
             <spotLight position={[5, 10, 10]} angle={0.25} penumbra={1} intensity={2} color="#ffffff" />
             <spotLight position={[-10, -5, 5]} angle={0.5} penumbra={1} intensity={1} color="#143DED" />
-            
-            {/* RIM LIGHT PUTIH FUTURISTIK: Menyinari siluet rambut dan kepala dari belakang */}
             <pointLight position={[0, 1.5, -2.5]} intensity={4} color="#ffffff" />
-            
-            <OrbitControls 
-              enableZoom={false} 
-              enablePan={false} 
-              minPolarAngle={Math.PI / 2.5} 
-              maxPolarAngle={Math.PI / 1.5}
-            />
-            
+            <OrbitControls enableZoom={false} enablePan={false} minPolarAngle={Math.PI / 2.5} maxPolarAngle={Math.PI / 1.5} />
             <Suspense fallback={
               <Html center>
                 <div className="flex flex-col items-center justify-center gap-3">
                   <div className="w-10 h-10 rounded-full border-2 border-[#143DED]/20 border-t-[#143DED] animate-spin shadow-[0_0_15px_rgba(20,61,237,0.5)]"></div>
-                  <span className="font-mono text-[10px] text-[#143DED] tracking-widest whitespace-nowrap animate-pulse">
-                    [ RENDERING 3D ASSET ]
-                  </span>
+                  <span className="font-mono text-[10px] text-[#143DED] tracking-widest whitespace-nowrap animate-pulse">[ RENDERING 3D ASSET ]</span>
                 </div>
               </Html>
             }>
@@ -203,53 +115,47 @@ const About = () => {
             { label: 'Focus &\nExpertise', value: 'Visual &\nSystems' },
             { label: 'Creative\nEcosystem', value: 'Digital\nBranding' },
           ].map((box, i) => (
-            <div
-              key={i}
-              className="relative group bg-gradient-to-br from-white/[0.04] to-transparent backdrop-blur-2xl backdrop-saturate-[2] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.2)] rounded-2xl p-5 flex flex-col justify-between aspect-square hover:border-white/20 hover:from-white/[0.08] transition-all duration-500 overflow-hidden"
-            >
+            <div key={i} className="relative group bg-gradient-to-br from-white/[0.04] to-transparent backdrop-blur-2xl backdrop-saturate-[2] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.2)] rounded-2xl p-5 flex flex-col justify-between aspect-square hover:border-white/20 hover:from-white/[0.08] transition-all duration-500 overflow-hidden">
               <div className="absolute inset-0 border-t border-white/10 rounded-2xl pointer-events-none"></div>
-              <p className="font-body text-xs text-white/50 whitespace-pre-line">
-                {box.label}
-              </p>
-              <h3 className="font-heading text-xl xl:text-2xl text-white font-medium whitespace-pre-line">
-                {box.value}
-              </h3>
+              <p className="font-body text-xs text-white/50 whitespace-pre-line">{box.label}</p>
+              <h3 className="font-heading text-xl xl:text-2xl text-white font-medium whitespace-pre-line">{box.value}</h3>
             </div>
           ))}
         </div>
 
-        {/* Futuristic Skill Bars (Lightweight & No Recharts) */}
+        {/* Futuristic Skill Bars */}
         <div className="w-full bg-[#080D18] md:bg-gradient-to-br md:from-white/[0.04] md:to-transparent border border-white/10 rounded-2xl p-6 md:backdrop-blur-2xl md:backdrop-saturate-[2] shadow-[0_8px_32px_rgba(0,0,0,0.2)] flex-grow flex flex-col hover:border-white/20 transition-all duration-500">
           <div className="flex items-center justify-between mb-6">
-            <h4 className="font-body text-[10px] text-[#143DED] uppercase tracking-widest font-bold">
-              Core Competencies
-            </h4>
+            <h4 className="font-body text-[10px] text-[#143DED] uppercase tracking-widest font-bold">Core Competencies</h4>
             <span className="flex h-2 w-2" title="System Optimized">
               <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-cyan-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
             </span>
           </div>
           <div className="flex flex-col gap-4 flex-grow justify-center">
-            {SKILL_METRICS.map((skill, i) => (
-              <div key={i} className="w-full group">
-                <div className="flex justify-between items-end mb-1.5">
-                  <span className="font-body text-xs font-medium text-white/80 group-hover:text-white transition-colors">{skill.subject}</span>
-                  <span className="font-body text-[10px] text-white/40 font-mono">{skill.A}%</span>
+            {isLoading ? (
+              <div className="flex justify-center py-4"><div className="w-6 h-6 border-2 border-[#143DED] border-t-transparent rounded-full animate-spin"></div></div>
+            ) : (
+              skills.map((skill, i) => (
+                <div key={skill.id || i} className="w-full group">
+                  <div className="flex justify-between items-end mb-1.5">
+                    <span className="font-body text-xs font-medium text-white/80 group-hover:text-white transition-colors">{skill.subject}</span>
+                    <span className="font-body text-[10px] text-white/40 font-mono">{skill.score}%</span>
+                  </div>
+                  <div className="w-full h-[4px] bg-white/5 rounded-full overflow-hidden relative">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.score}%` }}
+                      viewport={{ once: true, amount: 0.4 }}
+                      transition={{ duration: 1, delay: 0.15 + (i * 0.08), ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#143DED] to-cyan-400 rounded-full"
+                    >
+                      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_2px_rgba(20,61,237,0.8)]"></div>
+                    </motion.div>
+                  </div>
                 </div>
-                <div className="w-full h-[4px] bg-white/5 rounded-full overflow-hidden relative">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.A}%` }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: 1, delay: 0.15 + (i * 0.08), ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#143DED] to-cyan-400 rounded-full"
-                  >
-                    {/* Glowing dot di ujung bar */}
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_2px_rgba(20,61,237,0.8)]"></div>
-                  </motion.div>
-                </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </div>
