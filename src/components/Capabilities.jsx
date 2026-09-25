@@ -18,32 +18,33 @@ const PopOutCard = ({ skill, index }) => {
     >
       {/* KOTAK UTAMA (Mundur saat di-hover) */}
       <motion.div
-        className="w-full h-full flex flex-col items-start justify-between gap-6 p-6 md:p-8 rounded-3xl bg-[#080D18] md:bg-white/[0.02] border border-white/5 group-hover:border-[#143DED]/40 transition-colors duration-500 transform-style-3d cursor-pointer"
+        // MODIFIKASI: Padding HP dikecilkan (p-5), gap disesuaikan agar tidak luber
+        className="w-full h-full flex flex-col items-start justify-between gap-4 p-5 md:gap-6 md:p-8 rounded-2xl md:rounded-3xl bg-[#080D18] md:bg-white/[0.02] border border-white/5 group-hover:border-[#143DED]/40 transition-colors duration-500 transform-style-3d cursor-pointer"
         whileHover={{ 
-          rotateX: 10,  // Miring ke atas
-          rotateY: -10, // Miring ke kiri
-          scale: 0.95,  // Mengecil (Mundur)
+          rotateX: 10,
+          rotateY: -10,
+          scale: 0.95,
           transition: { duration: 0.4, ease: "easeOut" }
         }}
       >
-        {/* BAYANGAN CAHAYA (Berada di paling belakang / Z negatif) */}
         <div 
-          className="absolute inset-0 bg-[#143DED]/0 group-hover:bg-[#143DED]/15 blur-2xl transition-all duration-500 rounded-3xl pointer-events-none" 
+          className="absolute inset-0 bg-[#143DED]/0 group-hover:bg-[#143DED]/15 blur-2xl transition-all duration-500 rounded-2xl md:rounded-3xl pointer-events-none" 
           style={{ transform: "translateZ(-30px)" }} 
         />
 
-        {/* IKON KEAHLIAN (Lompat ke depan / Z positif 40px) */}
+        {/* IKON KEAHLIAN */}
         <div 
-          className="w-14 h-14 md:w-16 md:h-16 rounded-2xl border border-white/10 bg-[#05070D] flex items-center justify-center text-white/50 group-hover:text-[#143DED] group-hover:border-[#143DED]/50 transition-all duration-500 shadow-lg group-hover:shadow-[0_10px_30px_rgba(20,61,237,0.5)]"
+          className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl border border-white/10 bg-[#05070D] flex items-center justify-center text-white/50 group-hover:text-[#143DED] group-hover:border-[#143DED]/50 transition-all duration-500 shadow-lg group-hover:shadow-[0_10px_30px_rgba(20,61,237,0.5)]"
           style={{ transform: "translateZ(40px)" }}
         >
-          <IconComponent strokeWidth={1.5} size={28} />
+          <IconComponent strokeWidth={1.5} size={24} className="md:w-7 md:h-7" />
         </div>
         
-        {/* TEKS JUDUL (Lompat paling depan / Z positif 60px) */}
+        {/* TEKS JUDUL */}
         <div style={{ transform: "translateZ(60px)" }} className="mt-2 w-full">
-          <h3 className="font-heading text-lg md:text-xl font-bold text-white/90 whitespace-pre-line leading-snug group-hover:text-white transition-colors drop-shadow-md">
-            {skill.label}
+          {/* MODIFIKASI: Ukuran teks HP dikecilkan (text-base), dan mengubah teks mentah \n menjadi baris baru (newline) beneran */}
+          <h3 className="font-heading text-[15px] sm:text-base md:text-xl font-bold text-white/90 whitespace-pre-line leading-snug group-hover:text-white transition-colors drop-shadow-md">
+            {skill.label.replace(/\\n/g, '\n')}
           </h3>
           <div className="w-0 h-[2px] bg-[#143DED] mt-3 group-hover:w-1/2 transition-all duration-500 ease-out"></div>
         </div>

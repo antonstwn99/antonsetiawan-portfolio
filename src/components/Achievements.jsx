@@ -12,7 +12,8 @@ const FlipCard = ({ item, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="relative w-full h-[220px] cursor-pointer group perspective-[1000px]"
+      // Tinggi ditambah menjadi 250px (HP) / 260px (Desktop) agar lega
+      className="relative w-full h-[250px] md:h-[260px] cursor-pointer group perspective-[1000px]"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
       onClick={() => setIsFlipped(!isFlipped)} // Fallback untuk sentuhan di HP
@@ -25,7 +26,8 @@ const FlipCard = ({ item, index }) => {
       >
         {/* SISI DEPAN (FRONT) */}
         <div 
-          className="absolute inset-0 w-full h-full bg-gradient-to-br from-white/[0.04] to-transparent border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center text-center backface-hidden group-hover:border-[#143DED]/40 transition-colors"
+          // Padding diubah menjadi px-4 py-6 agar teks panjang tidak menabrak batas
+          className="absolute inset-0 w-full h-full bg-gradient-to-br from-white/[0.04] to-transparent border border-white/10 rounded-2xl px-4 py-6 flex flex-col items-center justify-center text-center backface-hidden group-hover:border-[#143DED]/40 transition-colors"
           style={{ backfaceVisibility: 'hidden' }}
         >
           <div className="w-14 h-14 rounded-full bg-[#05070D] border border-white/10 flex items-center justify-center shrink-0 mb-5 shadow-[0_0_15px_rgba(20,61,237,0.15)] group-hover:shadow-[0_0_20px_rgba(20,61,237,0.4)] transition-shadow">
@@ -35,7 +37,8 @@ const FlipCard = ({ item, index }) => {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#143DED" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
             )}
           </div>
-          <h3 className="font-heading text-lg font-bold text-white leading-snug">
+          {/* Ukuran font disesuaikan agar rapi di layar kecil */}
+          <h3 className="font-heading text-[15px] md:text-lg font-bold text-white leading-snug">
             {item.title}
           </h3>
           <p className="font-body text-[10px] text-white/40 uppercase tracking-widest mt-3">
@@ -102,16 +105,13 @@ const Achievements = () => {
             Awards &<br />
             <span className="text-[#143DED]">Certifications.</span>
           </h2>
-          <p className="font-body text-sm text-white/50 mt-6 max-w-sm">
-            Arahkan kursor atau sentuh kartu untuk melihat detail penghargaan dan institusi penerbit.
-          </p>
         </div>
         
         {/* BAGIAN KANAN: GRID KARTU FLIP */}
         <div className="w-full xl:w-[75%] relative z-10">
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-               {[1, 2, 3].map(i => <div key={i} className="w-full h-[220px] bg-white/[0.02] border border-white/5 rounded-2xl animate-pulse"></div>)}
+               {[1, 2, 3].map(i => <div key={i} className="w-full h-[250px] bg-white/[0.02] border border-white/5 rounded-2xl animate-pulse"></div>)}
             </div>
           ) : achievements.length === 0 ? (
             <div className="text-white/50 text-sm">Belum ada data penghargaan.</div>

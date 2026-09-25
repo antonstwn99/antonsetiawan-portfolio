@@ -100,9 +100,9 @@ const Contact = () => {
         {/* TOMBOL MAGNETIK UTAMA */}
         <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }} className="flex flex-col sm:flex-row items-center gap-6 mb-24">
           
-          <Magnetic href={settings.whatsapp} className="group flex items-center gap-3 bg-white text-[#05070D] rounded-full px-8 py-4 hover:bg-[#143DED] hover:text-white transition-colors duration-300 shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(20,61,237,0.4)]">
-            <span className="font-body font-bold">Start a Project</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:rotate-45 transition-transform duration-300"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          <Magnetic href={settings.whatsapp} className="group flex items-center gap-3 bg-[#25D366] text-white rounded-full px-8 py-4 hover:bg-white hover:text-[#05070D] transition-colors duration-300 shadow-[0_0_30px_rgba(37,211,102,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform duration-300"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span className="font-body font-bold tracking-wide">Start a Project</span>
           </Magnetic>
 
           <Magnetic onClick={handleCopyEmail} className="group flex items-center gap-3 bg-transparent border border-white/20 text-white rounded-full px-8 py-4 hover:border-white/60 transition-colors duration-300 cursor-pointer">
@@ -123,11 +123,14 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <Magnetic href={settings.instagram} className="w-12 h-12 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-white/60 hover:text-[#143DED] hover:border-[#143DED]/50 transition-colors group">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <Magnetic href={settings.whatsapp} className="w-12 h-12 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-white/60 hover:text-[#25D366] hover:border-[#25D366]/50 transition-colors group">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </Magnetic>
+            <Magnetic href={settings.instagram} className="w-12 h-12 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-white/60 hover:text-[#E1306C] hover:border-[#E1306C]/50 transition-colors group">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
             </Magnetic>
-            <Magnetic href={settings.linkedin} className="w-12 h-12 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-white/60 hover:text-[#143DED] hover:border-[#143DED]/50 transition-colors group">
+            <Magnetic href={settings.linkedin} className="w-12 h-12 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-white/60 hover:text-[#0A66C2] hover:border-[#0A66C2]/50 transition-colors group">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
             </Magnetic>
           </div>
