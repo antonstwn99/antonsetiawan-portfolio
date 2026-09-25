@@ -24,6 +24,8 @@ const Experience = () => {
   return (
     <section id="experience" className="py-24 px-6 md:px-16 overflow-hidden">
       <div className="flex flex-col xl:flex-row gap-12 xl:gap-24">
+        
+        {/* JUDUL KIRI */}
         <div className="w-full xl:w-[25%] shrink-0">
           <div className="flex items-center gap-3 mb-3">
             <span className="font-body text-[10px] font-semibold tracking-widest uppercase text-[#143DED]">Journey</span>
@@ -32,9 +34,12 @@ const Experience = () => {
             Milestones<br />that <span className="text-[#143DED]">shaped me.</span>
           </h2>
         </div>
+        
         <div className="w-full xl:w-[75%] flex flex-col gap-12 mt-8 xl:mt-0">
           
-          {/* EDUCATION SECTION */}
+          {/* ==============================================
+              EDUCATION SECTION
+              ============================================== */}
           <div className="relative">
             <h3 className="font-heading text-lg font-bold text-white mb-6 flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-[#143DED]"></span> Academic Background
@@ -50,8 +55,20 @@ const Experience = () => {
                       <span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span></span>
                       IPK: {item.gpa}
                     </div>
-                    <h3 className="font-heading text-xl md:text-2xl font-bold text-white mb-1">{item.degree}</h3>
-                    <p className="font-body text-sm font-bold text-[#143DED] mb-1">{item.institution}</p>
+                    
+                    {/* MODIFIKASI: Menambahkan Logo Education */}
+                    <div className="flex items-center gap-4 mb-4">
+                      {item.logo && (
+                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 border border-white/10 p-2 flex items-center justify-center shrink-0 shadow-lg">
+                          <img src={item.logo} alt={item.institution} className="w-full h-full object-contain" />
+                        </div>
+                      )}
+                      <div>
+                        <h3 className="font-heading text-xl md:text-2xl font-bold text-white mb-1">{item.degree}</h3>
+                        <p className="font-body text-sm font-bold text-[#143DED]">{item.institution}</p>
+                      </div>
+                    </div>
+
                     <p className="font-body text-xs text-white/50 uppercase tracking-widest mb-4">{item.year}</p>
                     <div className="flex items-start gap-3 mt-2">
                       <div className="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0 mt-0.5"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></div>
@@ -65,12 +82,15 @@ const Experience = () => {
 
           <div className="w-full h-[1px] bg-white/10 my-2 md:my-0"></div>
 
-          {/* EXPERIENCE SECTION */}
+          {/* ==============================================
+              EXPERIENCE SECTION
+              ============================================== */}
           <div className="relative">
             <h3 className="font-heading text-lg font-bold text-white mb-6 flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-[#143DED]"></span> Professional Experience
             </h3>
             <div className="absolute top-[60px] left-0 w-full h-[1px] bg-gradient-to-r from-[#143DED]/10 via-[#143DED]/50 to-transparent hidden md:block"></div>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 relative z-10">
               {isLoading ? (
                  <div className="col-span-full h-32 rounded-2xl bg-white/[0.02] border border-white/5 animate-pulse"></div>
@@ -81,9 +101,21 @@ const Experience = () => {
                       <div className="absolute inset-[-4px] rounded-full border border-[#143DED]/30 scale-0 group-hover:scale-100 transition-transform duration-500"></div>
                     </div>
                     <div className="md:hidden w-8 h-[1px] bg-[#143DED]/50 mb-4"></div>
-                    <h3 className="font-heading text-xl md:text-2xl font-semibold text-[#143DED] mb-2">{item.year}</h3>
-                    <p className="font-body text-sm font-bold text-white mb-1">{item.title}</p>
-                    <p className="font-body text-xs text-white/50 uppercase tracking-widest mb-3">{item.role}</p>
+                    
+                    {/* MODIFIKASI: Menambahkan Logo Experience */}
+                    <div className="flex items-start gap-4 mb-4">
+                      {item.logo && (
+                        <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 p-1.5 flex items-center justify-center shrink-0 mt-1 shadow-lg group-hover:border-[#143DED]/50 transition-colors">
+                           <img src={item.logo} alt={item.title} className="w-full h-full object-contain" />
+                        </div>
+                      )}
+                      <div>
+                        <h3 className="font-heading text-xl md:text-2xl font-semibold text-[#143DED] mb-1">{item.year}</h3>
+                        <p className="font-body text-sm font-bold text-white mb-1">{item.title}</p>
+                        <p className="font-body text-xs text-white/50 uppercase tracking-widest">{item.role}</p>
+                      </div>
+                    </div>
+
                     <p className="font-body text-sm text-white/70 leading-relaxed">{item.desc}</p>
                   </motion.div>
                 ))
