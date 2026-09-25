@@ -39,22 +39,28 @@ const PartnersMarquee = () => {
           {tickerItems.map((item, index) => (
             <div
               key={`${item.id}-${index}`}
-              className="flex items-center gap-3 px-5 py-2.5 rounded-full border border-white/5 bg-white/[0.015] hover:bg-white/[0.05] hover:border-[#143DED]/40 transition-all duration-300 group cursor-default"
+              // MODIFIKASI: Menyesuaikan pr-6 (padding kanan) agar teks tidak nabrak tepi rounded, flex-nowrap agar elemen tidak pecah
+              className="flex items-center flex-nowrap gap-3 pl-2 pr-5 py-1.5 md:py-2 md:pl-2.5 md:pr-6 rounded-full border border-white/5 bg-white/[0.015] hover:bg-white/[0.05] hover:border-[#143DED]/40 transition-all duration-300 group cursor-default"
             >
-              {/* Bagian Ikon Kiri: Logo Bersih (jika ada) ATAU Titik Biru (jika tidak ada logo) */}
               {item.logo ? (
-                 <img
-                    src={item.logo}
-                    alt={item.name}
-                    // Menghilangkan kotak, menggunakan ukuran fixed, dan memberikan efek filter natural
-                    className="h-6 w-auto md:h-7 object-contain opacity-50 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300 shrink-0"
-                 />
+                 // MODIFIKASI: Membungkus logo dengan lingkaran putih purna agar logo berlatar putih/hitam tetap estetik (tidak kaku/kotak).
+                 <div className="w-8 h-8 md:w-9 md:h-9 shrink-0 rounded-full overflow-hidden bg-white flex items-center justify-center border border-white/10 group-hover:border-[#143DED]/50 transition-colors">
+                    <img
+                      src={item.logo}
+                      alt={item.name}
+                      // Memberikan padding dalam object agar logo punya ruang lega di dalam lingkaran
+                      className="w-[70%] h-[70%] object-contain opacity-70 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300"
+                    />
+                 </div>
               ) : (
-                <div className="w-1.5 h-1.5 shrink-0 rounded-full bg-[#143DED]/60 group-hover:bg-[#143DED] group-hover:shadow-[0_0_8px_#143DED] transition-all"></div>
+                // Padding kiri untuk menyamakan proporsi dengan yang ada logonya
+                <div className="pl-3">
+                   <div className="w-1.5 h-1.5 shrink-0 rounded-full bg-[#143DED]/60 group-hover:bg-[#143DED] group-hover:shadow-[0_0_8px_#143DED] transition-all"></div>
+                </div>
               )}
               
-              {/* Bagian Teks Kanan: Akan selalu muncul! */}
-              <span className="font-heading text-xs md:text-sm font-medium tracking-wider text-white/50 group-hover:text-white uppercase whitespace-nowrap transition-colors">
+              {/* Teks dengan penyesuaian margin */}
+              <span className="font-heading text-[10px] md:text-[11px] font-bold tracking-[0.2em] text-white/50 group-hover:text-white uppercase whitespace-nowrap transition-colors">
                 {item.name}
               </span>
             </div>
