@@ -309,7 +309,7 @@ export const EDUCATION_DATA = [
     degree: 'D4 Teknologi Rekayasa Multimedia',
     institution: 'Politeknik Hasnur',
     gpa: '3.92',
-    desc: 'Pemegang Beasiswa Unggulan dari Yayasan Hasnur Centre. Fokus memperdalam perancangan produk end-to-end, logika rekayasa perangkat lunak, dan estetika desain visual.',
+    desc: 'Pemegang Beasiswa Unggulan dan Penuh dari Yayasan Hasnur Centre. Fokus memperdalam perancangan produk end-to-end, logika rekayasa perangkat lunak, dan estetika desain visual.',
   },
 ];
 
