@@ -57,7 +57,6 @@ const Experience = () => {
   const [education, setEducation] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // State untuk Elliptical Carousel
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -81,7 +80,6 @@ const Experience = () => {
     fetchData();
   }, []);
 
-  // Logika Matematika Elliptical Carousel
   const totalExp = experiences.length;
   const activeExp = experiences[activeIndex];
 
@@ -100,15 +98,14 @@ const Experience = () => {
       if (diff < -Math.floor(totalExp / 2)) diff += totalExp;
     }
 
-    // MODIFIKASI: xOffset diperlebar untuk desktop agar penyebarannya pas dengan ukuran kartu yang baru
-    const xOffset = isMobile ? 110 : 300; 
-    const yOffset = isMobile ? 15 : 40;   
+    // MODIFIKASI 1: Jarak renggang di desktop (xOffset) diperlebar drastis menjadi 350px
+    const xOffset = isMobile ? 110 : 350; 
+    const yOffset = isMobile ? 15 : 50;   
     const rotateBase = isMobile ? 8 : 12; 
 
     if (diff === 0) {
       return { x: 0, y: 0, scale: 1, zIndex: 10, rotateZ: 0, opacity: 1, filter: 'brightness(100%)' };
     } else if (diff === 1) {
-      // MODIFIKASI: Opacity dinaikkan dari 0.5 menjadi 0.85 agar tidak menembus background secara berlebihan
       return { x: xOffset, y: yOffset, scale: 0.85, zIndex: 5, rotateZ: rotateBase, opacity: 0.85, filter: 'brightness(45%)' };
     } else if (diff === -1) {
       return { x: -xOffset, y: yOffset, scale: 0.85, zIndex: 5, rotateZ: -rotateBase, opacity: 0.85, filter: 'brightness(45%)' };
@@ -118,12 +115,14 @@ const Experience = () => {
   };
 
   return (
-    <section id="experience" className="py-24 px-6 md:px-16 overflow-hidden">
+    // MODIFIKASI 2: Flex-col gap-16 memisahkan Edukasi (atas) dan Experience (bawah)
+    <section id="experience" className="py-24 px-6 md:px-16 overflow-hidden flex flex-col gap-16 md:gap-24">
+      
+      {/* ==============================================
+          BAGIAN ATAS: EDUCATION (Layout 2 Kolom)
+          ============================================== */}
       <div className="flex flex-col xl:flex-row gap-12 xl:gap-24">
-        
-        {/* ==============================================
-            KOLOM KIRI: JUDUL UTAMA
-            ============================================== */}
+        {/* Judul Kiri */}
         <div className="w-full xl:w-[25%] shrink-0 relative xl:sticky xl:top-24 mb-4 xl:mb-0 z-20 h-fit">
           <div className="flex items-center gap-3 mb-3">
             <span className="font-body text-[10px] font-semibold tracking-widest uppercase text-[#143DED]">Journey</span>
@@ -133,12 +132,8 @@ const Experience = () => {
           </h2>
         </div>
         
-        {/* ==============================================
-            KOLOM KANAN: KONTEN
-            ============================================== */}
-        <div className="w-full xl:w-[75%] flex flex-col gap-20 mt-8 xl:mt-0">
-          
-          {/* 1. BAGIAN PENDIDIKAN (Tilt Card Hologram) */}
+        {/* Konten Edukasi Kanan */}
+        <div className="w-full xl:w-[75%]">
           <div className="relative">
             <h3 className="font-heading text-lg font-bold text-white mb-6 flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-[#143DED]"></span> Academic Background
@@ -151,12 +146,10 @@ const Experience = () => {
                   <TiltCard key={`edu-${index}`}>
                     <div className="flex flex-col h-full relative bg-gradient-to-r from-white/[0.03] to-transparent p-6 md:p-8 rounded-2xl border border-white/10 overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
                       <div className="absolute top-0 right-0 w-32 h-32 bg-[#143DED] blur-[80px] opacity-20 pointer-events-none" style={{ transform: "translateZ(-10px)" }}></div>
-                      
                       <div className="absolute top-0 right-0 bg-gradient-to-l from-[#143DED] to-cyan-500 text-white text-[10px] md:text-xs font-bold px-4 py-1.5 rounded-bl-2xl rounded-tr-2xl uppercase tracking-wider shadow-lg flex items-center gap-2" style={{ transform: "translateZ(30px)" }}>
                         <span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span></span>
                         IPK: {item.gpa}
                       </div>
-                      
                       <div className="flex items-start gap-4 mb-5 relative pt-2" style={{ transform: "translateZ(40px)" }}>
                         {item.logo && (
                           <div className="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-xl overflow-hidden border border-white/10 bg-transparent flex items-center justify-center shadow-lg bg-black">
@@ -168,7 +161,6 @@ const Experience = () => {
                           <p className="font-body text-sm font-semibold text-[#143DED]">{item.institution}</p>
                         </div>
                       </div>
-
                       <p className="font-body text-xs text-white/50 uppercase tracking-widest mb-4" style={{ transform: "translateZ(20px)" }}>{item.year}</p>
                       <div className="flex items-start gap-3 mt-2" style={{ transform: "translateZ(30px)" }}>
                         <div className="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0 mt-0.5"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></div>
@@ -180,93 +172,97 @@ const Experience = () => {
               )}
             </div>
           </div>
-
-          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent my-2"></div>
-
-          {/* 2. BAGIAN PENGALAMAN KERJA (Elliptical Carousel 3D) */}
-          <div className="relative">
-            <h3 className="font-heading text-lg font-bold text-white mb-10 flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#143DED]"></span> Professional Experience
-            </h3>
-            
-            {isLoading ? (
-               <div className="h-64 rounded-3xl bg-white/[0.02] border border-white/5 animate-pulse"></div>
-            ) : experiences.length === 0 ? (
-               <div className="text-white/50">Belum ada pengalaman kerja.</div>
-            ) : (
-              <div className="flex flex-col items-center">
-                
-                {/* WADAH KORSEL MELINGKAR */}
-                {/* MODIFIKASI: Tinggi container ditambah untuk desktop (md:h-[450px]) */}
-                <div className="relative w-full h-[260px] md:h-[450px] flex items-center justify-center perspective-[1000px]">
-                  {/* Cahaya Latar Belakang */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[450px] md:h-[450px] bg-[#143DED] blur-[100px] opacity-20 pointer-events-none rounded-full"></div>
-
-                  {experiences.map((item, index) => {
-                    const styles = getCardStyles(index);
-                    const isActive = index === activeIndex;
-
-                    return (
-                      <motion.div
-                        key={item.id}
-                        drag="x"
-                        dragConstraints={{ left: 0, right: 0 }}
-                        dragElastic={0.1}
-                        onDragEnd={handleDragEnd}
-                        onClick={() => setActiveIndex(index)}
-                        initial={false}
-                        animate={styles}
-                        transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
-                        // MODIFIKASI: Ukuran kartu desktop dirombak menjadi besar (md:w-[280px] md:h-[380px]), background inactive lebih solid (bg-[#080D18])
-                        className={`absolute w-[180px] h-[240px] md:w-[280px] md:h-[380px] rounded-3xl overflow-hidden border ${isActive ? 'border-[#143DED]/50 cursor-grab active:cursor-grabbing shadow-[0_20px_50px_rgba(20,61,237,0.3)] bg-gradient-to-b from-white/[0.08] to-[#143DED]/15 backdrop-blur-md' : 'border-white/10 cursor-pointer shadow-lg bg-[#080D18] backdrop-blur-md'}`}
-                      >
-                        {/* MODIFIKASI: Padding & ukuran isi disesuaikan dengan kartu yang membesar */}
-                        <div className="p-5 md:p-8 flex flex-col items-center text-center h-full justify-center">
-                          {item.logo ? (
-                            <div className="w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-white/[0.03] border border-white/10 p-2 md:p-3 mb-5 flex items-center justify-center shadow-md">
-                              <img src={item.logo} alt={item.title} className="w-full h-full object-contain" draggable="false" />
-                            </div>
-                          ) : (
-                            <div className="w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-white/[0.03] border border-white/10 mb-5 flex items-center justify-center shadow-md">
-                              <span className="text-2xl md:text-4xl font-bold text-[#143DED]">{item.title.charAt(0)}</span>
-                            </div>
-                          )}
-                          <h3 className="font-heading text-base md:text-xl font-bold text-white mb-2 leading-tight">{item.title}</h3>
-                          <p className="font-body text-[10px] md:text-sm text-[#143DED] uppercase tracking-widest">{item.year}</p>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-
-                {/* TEKS DETAIL PENGALAMAN (Berubah dinamis saat korsel diputar) */}
-                <div className="mt-8 max-w-2xl text-center min-h-[120px]">
-                  <AnimatePresence mode="wait">
-                    {activeExp && (
-                      <motion.div
-                        key={activeExp.id}
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -15 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <h4 className="font-heading text-xl md:text-2xl font-bold text-white mb-3 drop-shadow-md">{activeExp.role}</h4>
-                        <p className="font-body text-sm md:text-base text-white/70 leading-relaxed">{activeExp.desc}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                {/* NAVIGASI PANAH BAWAH */}
-                <div className="flex items-center gap-6 mt-2">
-                  <button onClick={prevSlide} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-colors outline-none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m15 18-6-6 6-6"/></svg></button>
-                  <button onClick={nextSlide} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-colors outline-none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6"/></svg></button>
-                </div>
-
-              </div>
-            )}
-          </div>
         </div>
+      </div>
+
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+      {/* ==============================================
+          BAGIAN BAWAH: EXPERIENCE (Full Width / Tengah)
+          ============================================== */}
+      {/* MODIFIKASI 3: Dikeluarkan dari kolom 75% agar berada di TENGAH secara presisi */}
+      <div className="w-full flex flex-col items-center justify-center relative">
+        <h3 className="font-heading text-lg md:text-2xl font-bold text-white mb-10 md:mb-16 flex items-center justify-center gap-3 w-full">
+          <span className="w-2 h-2 rounded-full bg-[#143DED]"></span> Professional Experience
+        </h3>
+        
+        {isLoading ? (
+            <div className="h-64 w-full max-w-4xl rounded-3xl bg-white/[0.02] border border-white/5 animate-pulse"></div>
+        ) : experiences.length === 0 ? (
+            <div className="text-white/50">Belum ada pengalaman kerja.</div>
+        ) : (
+          <div className="flex flex-col items-center w-full">
+            
+            {/* WADAH KORSEL MELINGKAR */}
+            {/* MODIFIKASI 4: Ketinggian ruang korsel (h-[500px]) di desktop diperbesar */}
+            <div className="relative w-full max-w-6xl h-[260px] md:h-[500px] flex items-center justify-center perspective-[1200px]">
+              
+              {/* Cahaya Latar Belakang */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[500px] md:h-[500px] bg-[#143DED] blur-[120px] opacity-20 pointer-events-none rounded-full"></div>
+
+              {experiences.map((item, index) => {
+                const styles = getCardStyles(index);
+                const isActive = index === activeIndex;
+
+                return (
+                  <motion.div
+                    key={item.id}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.1}
+                    onDragEnd={handleDragEnd}
+                    onClick={() => setActiveIndex(index)}
+                    initial={false}
+                    animate={styles}
+                    transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+                    // MODIFIKASI 5: Ukuran kartu desktop SANGAT BESAR (w-[320px] h-[440px])
+                    className={`absolute w-[180px] h-[240px] md:w-[320px] md:h-[440px] rounded-3xl overflow-hidden border ${isActive ? 'border-[#143DED]/50 cursor-grab active:cursor-grabbing shadow-[0_20px_50px_rgba(20,61,237,0.3)] bg-gradient-to-b from-white/[0.08] to-[#143DED]/15 backdrop-blur-md' : 'border-white/10 cursor-pointer shadow-lg bg-[#080D18] backdrop-blur-md'}`}
+                  >
+                    <div className="p-5 md:p-8 flex flex-col items-center text-center h-full justify-center">
+                      {item.logo ? (
+                        // MODIFIKASI 6: Padding dihapus, overflow-hidden ditambah, dan object-cover untuk logo!
+                        <div className="w-16 h-16 md:w-28 md:h-28 rounded-2xl bg-white/[0.03] border border-white/10 mb-5 flex items-center justify-center shadow-md overflow-hidden shrink-0">
+                          <img src={item.logo} alt={item.title} className="w-full h-full object-cover" draggable="false" />
+                        </div>
+                      ) : (
+                        <div className="w-16 h-16 md:w-28 md:h-28 rounded-2xl bg-white/[0.03] border border-white/10 mb-5 flex items-center justify-center shadow-md overflow-hidden shrink-0">
+                          <span className="text-2xl md:text-5xl font-bold text-[#143DED]">{item.title.charAt(0)}</span>
+                        </div>
+                      )}
+                      <h3 className="font-heading text-base md:text-2xl font-bold text-white mb-2 leading-tight">{item.title}</h3>
+                      <p className="font-body text-[10px] md:text-sm text-[#143DED] uppercase tracking-widest">{item.year}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* TEKS DETAIL PENGALAMAN */}
+            <div className="mt-8 max-w-2xl text-center min-h-[120px] px-4">
+              <AnimatePresence mode="wait">
+                {activeExp && (
+                  <motion.div
+                    key={activeExp.id}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h4 className="font-heading text-xl md:text-3xl font-bold text-white mb-3 drop-shadow-md">{activeExp.role}</h4>
+                    <p className="font-body text-sm md:text-base text-white/70 leading-relaxed">{activeExp.desc}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* NAVIGASI PANAH BAWAH */}
+            <div className="flex items-center gap-6 mt-2">
+              <button onClick={prevSlide} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-colors outline-none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m15 18-6-6 6-6"/></svg></button>
+              <button onClick={nextSlide} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-colors outline-none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6"/></svg></button>
+            </div>
+
+          </div>
+        )}
       </div>
     </section>
   );
