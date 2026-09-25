@@ -95,7 +95,8 @@ const Achievements = () => {
       <div className="flex flex-col xl:flex-row gap-12 xl:gap-24 items-start">
         
         {/* BAGIAN KIRI: JUDUL */}
-        <div className="w-full xl:w-[25%] shrink-0 sticky top-24">
+        {/* MODIFIKASI: Mengganti sticky menjadi relative untuk HP, dan xl:sticky khusus untuk layar PC */}
+        <div className="w-full xl:w-[25%] shrink-0 relative xl:sticky xl:top-24 mb-4 xl:mb-0 z-20">
           <div className="flex items-center gap-3 mb-3">
             <span className="font-body text-[10px] font-semibold tracking-widest uppercase text-[#143DED]">
               Recognition
