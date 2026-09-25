@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import antonLogo from '../assets/anton/anton-logo.png';
 
-// Import data statis lama Anda untuk disedot ke Supabase
+// Import data statis lama
 import {
   PROJECT_DATABASE, EXPERIENCE_DATA, ACHIEVEMENTS_DATA,
   SKILL_METRICS, EDUCATION_DATA, PARTNERS_DATA
@@ -23,7 +23,6 @@ const Admin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMigrating, setIsMigrating] = useState(false);
-  
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
@@ -43,78 +42,65 @@ const Admin = () => {
     setFetching(false);
   };
 
-  // =========================================================================
-  // FUNGSI SUPER: MIGRASI DATA LOKAL KE SUPABASE (1-KLIK)
-  // =========================================================================
+  // FUNGSI MIGRASI DENGAN PENANGANAN ERROR YANG BENAR
   const handleMigrateData = async () => {
-    if (!window.confirm("PERINGATAN: Ini akan menyalin semua data dari file portfolioData.js ke Supabase. Lanjutkan?")) return;
+    if (!window.confirm("PERINGATAN: Menyalin data lokal ke Supabase. Lanjutkan?")) return;
     
     setIsMigrating(true);
     try {
-      // 1. Migrate Projects
+      let insertError = null;
+
       if (activeTab === 'projects') {
         const payload = PROJECT_DATABASE.map(p => ({
-          title: p.title,
-          category: Array.isArray(p.category) ? p.category : [p.category],
-          year: p.year,
-          featured: p.featured || false,
-          tools: p.tools || [],
-          description: p.description,
-          image: p.image || null
+          title: p.title, category: Array.isArray(p.category) ? p.category : [p.category],
+          year: p.year, featured: p.featured || false, tools: p.tools || [],
+          description: p.description, image: p.image || null
         }));
-        await supabase.from('projects').insert(payload);
-      }
-      // 2. Migrate Experience
-      else if (activeTab === 'experience') {
-        await supabase.from('experience').insert(EXPERIENCE_DATA);
-      }
-      // 3. Migrate Achievements
-      else if (activeTab === 'achievements') {
-        await supabase.from('achievements').insert(ACHIEVEMENTS_DATA);
-      }
-      // 4. Migrate Skills
-      else if (activeTab === 'skills') {
-        const skillPayload = SKILL_METRICS.map(s => ({
-          subject: s.subject, score: s.A, full_mark: s.fullMark || 100
-        }));
-        await supabase.from('skills').insert(skillPayload);
-      }
-      // 5. Migrate Education
-      else if (activeTab === 'education') {
-        await supabase.from('education').insert(EDUCATION_DATA);
-      }
-      // 6. Migrate Partners
-      else if (activeTab === 'partners') {
+        const { error } = await supabase.from('projects').insert(payload);
+        insertError = error;
+      } else if (activeTab === 'experience') {
+        const { error } = await supabase.from('experience').insert(EXPERIENCE_DATA);
+        insertError = error;
+      } else if (activeTab === 'achievements') {
+        const { error } = await supabase.from('achievements').insert(ACHIEVEMENTS_DATA);
+        insertError = error;
+      } else if (activeTab === 'skills') {
+        const skillPayload = SKILL_METRICS.map(s => ({ subject: s.subject, score: s.A, full_mark: s.fullMark || 100 }));
+        const { error } = await supabase.from('skills').insert(skillPayload);
+        insertError = error;
+      } else if (activeTab === 'education') {
+        const { error } = await supabase.from('education').insert(EDUCATION_DATA);
+        insertError = error;
+      } else if (activeTab === 'partners') {
         const partnerPayload = PARTNERS_DATA.map(p => ({ name: p.name, logo: p.logo || null }));
-        await supabase.from('partners').insert(partnerPayload);
+        const { error } = await supabase.from('partners').insert(partnerPayload);
+        insertError = error;
       }
 
-      alert(`Migrasi data ${activeTab} berhasil!`);
+      // Jika keamanan RLS memblokir, errornya akan muncul di sini
+      if (insertError) throw insertError;
+
+      alert(`Migrasi ${activeTab} sukses!`);
       fetchItems();
     } catch (err) {
-      alert("Terjadi kesalahan: " + err.message);
+      alert("GAGAL: Pastikan Anda sudah menjalankan SQL 'Admin Full Access'. Detail: " + err.message);
     }
     setIsMigrating(false);
   };
 
-  // =========================================================================
-  // FUNGSI SIMPAN DATA BARU (CREATE)
-  // =========================================================================
   const handleSave = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
     let payload = { ...formData };
     
-    // Konversi string koma menjadi Array khusus tabel Projects
     if (activeTab === 'projects') {
       if(payload.category) payload.category = payload.category.split(',').map(item => item.trim()).filter(Boolean);
       if(payload.tools) payload.tools = payload.tools.split(',').map(item => item.trim()).filter(Boolean);
     }
 
     const { error } = await supabase.from(activeTab).insert([payload]);
-    
     setIsSubmitting(false);
+    
     if (!error) {
       setIsModalOpen(false);
       setFormData({});
@@ -152,21 +138,41 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-[#05070D] text-white flex flex-col md:flex-row font-body">
+      {/* SIDEBAR */}
       <aside className="w-full md:w-64 border-b md:border-r border-white/10 bg-[#05070D]/50 backdrop-blur-xl flex flex-col sticky top-0 z-20 md:h-screen">
-        <div className="p-4 md:p-6">
-          <div className="flex items-center gap-3 mb-6">
-            <img src={antonLogo} alt="Logo" className="w-10 h-10 rounded-xl" />
-            <div><h1 className="font-bold text-lg">Admin CMS</h1></div>
+        <div className="p-4 md:p-6 flex-1 flex flex-col">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <img src={antonLogo} alt="Logo" className="w-10 h-10 rounded-xl border border-white/10" />
+              <div>
+                <h1 className="font-bold text-lg leading-tight">Admin CMS</h1>
+                <p className="text-[10px] text-green-500 uppercase tracking-widest font-bold">Online</p>
+              </div>
+            </div>
+            
+            {/* TOMBOL LOGOUT MOBILE (Dikembalikan!) */}
+            <button onClick={() => supabase.auth.signOut()} className="md:hidden border border-white/20 p-2 rounded-lg text-white/50 hover:text-red-400 hover:border-red-500/30 transition-colors">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            </button>
           </div>
+
           <nav className="flex md:flex-col gap-2 overflow-x-auto hide-scrollbar">
             {tabs.map(tab => (
-              <button key={tab} onClick={() => {setActiveTab(tab); setFormData({});}} className={`text-left px-4 py-2.5 rounded-xl capitalize text-sm shrink-0 ${activeTab === tab ? 'bg-[#143DED]' : 'text-white/50 hover:bg-white/5'}`}>{tab}</button>
+              <button key={tab} onClick={() => {setActiveTab(tab); setFormData({});}} className={`text-left px-4 py-2.5 rounded-xl capitalize text-sm shrink-0 outline-none ${activeTab === tab ? 'bg-[#143DED]' : 'text-white/50 hover:bg-white/5 hover:text-white'}`}>{tab}</button>
             ))}
           </nav>
+
+          {/* TOMBOL LOGOUT DESKTOP */}
+          <div className="mt-auto pt-6 hidden md:block border-t border-white/10 mt-6">
+            <button onClick={() => supabase.auth.signOut()} className="flex items-center gap-3 text-white/50 hover:text-red-400 transition-colors w-full px-2 py-2 text-sm font-medium outline-none">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+              Secure Logout
+            </button>
+          </div>
         </div>
-        <button onClick={() => supabase.auth.signOut()} className="mt-auto m-6 text-white/50 text-sm text-left hover:text-red-400 hidden md:block">Logout</button>
       </aside>
 
+      {/* MAIN CONTENT */}
       <main className="flex-1 p-4 md:p-12 overflow-y-auto">
          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-white/10 gap-4">
             <div>
@@ -197,16 +203,12 @@ const Admin = () => {
                   <h3 className="font-bold mb-1 truncate">{item.title || item.name || item.degree || item.subject || 'Untitled'}</h3>
                   <p className="text-[10px] text-white/50 mb-3">{item.year || item.score || item.role}</p>
                   {item.description || item.desc ? <p className="text-xs text-white/70 line-clamp-2 mb-4">{item.description || item.desc}</p> : null}
-                  <div className="flex gap-2 border-t border-white/5 pt-3 mt-2">
-                     <button className="text-[10px] font-bold text-red-400 bg-red-400/10 px-3 py-1.5 rounded w-full">Delete</button>
-                  </div>
                 </div>
               ))}
             </div>
          )}
       </main>
 
-      {/* MODAL FORM DINAMIS */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#05070D]/80 backdrop-blur-sm overflow-y-auto">
           <div className="bg-[#080D18] border border-white/10 w-full max-w-2xl rounded-3xl p-6 md:p-8 shadow-2xl relative">
@@ -214,7 +216,6 @@ const Admin = () => {
             <h2 className="text-xl font-bold mb-6 capitalize">Add New {activeTab}</h2>
             
             <form onSubmit={handleSave} className="flex flex-col gap-4">
-              {/* FORM UNTUK PROJECTS */}
               {activeTab === 'projects' && (
                 <>
                   <input type="text" placeholder="Title" required onChange={e => setFormData({...formData, title: e.target.value})} className="bg-[#05070D] border border-white/10 p-3 rounded-xl text-sm" />
@@ -224,8 +225,6 @@ const Admin = () => {
                   <textarea placeholder="Description" required onChange={e => setFormData({...formData, description: e.target.value})} className="bg-[#05070D] border border-white/10 p-3 rounded-xl text-sm"></textarea>
                 </>
               )}
-
-              {/* FORM UNTUK EXPERIENCE */}
               {activeTab === 'experience' && (
                 <>
                   <input type="text" placeholder="Year (Misal: 2026 - Now)" required onChange={e => setFormData({...formData, year: e.target.value})} className="bg-[#05070D] border border-white/10 p-3 rounded-xl text-sm" />
@@ -234,21 +233,10 @@ const Admin = () => {
                   <textarea placeholder="Description" required onChange={e => setFormData({...formData, desc: e.target.value})} className="bg-[#05070D] border border-white/10 p-3 rounded-xl text-sm"></textarea>
                 </>
               )}
-
-              {/* FORM UNTUK SKILLS */}
-              {activeTab === 'skills' && (
-                <>
-                  <input type="text" placeholder="Subject (Misal: UI/UX Design)" required onChange={e => setFormData({...formData, subject: e.target.value})} className="bg-[#05070D] border border-white/10 p-3 rounded-xl text-sm" />
-                  <input type="number" placeholder="Score (0-100)" required onChange={e => setFormData({...formData, score: e.target.value})} className="bg-[#05070D] border border-white/10 p-3 rounded-xl text-sm" />
-                </>
+              {!['projects', 'experience'].includes(activeTab) && (
+                 <div className="p-4 bg-white/5 border border-white/10 rounded-xl text-sm text-center text-white/50">Form untuk {activeTab} sedang dimatikan untuk pengujian.</div>
               )}
-
-              {/* TAMPILAN JIKA FORM BELUM DIBUAT */}
-              {!['projects', 'experience', 'skills'].includes(activeTab) && (
-                 <div className="p-4 bg-white/5 border border-white/10 rounded-xl text-sm text-center text-white/50">Form untuk {activeTab} siap disambungkan.</div>
-              )}
-
-              <button type="submit" className="w-full bg-[#143DED] font-bold py-3.5 rounded-xl mt-4">Simpan Data</button>
+              <button type="submit" disabled={isSubmitting} className="w-full bg-[#143DED] font-bold py-3.5 rounded-xl mt-4">{isSubmitting ? 'Menyimpan...' : 'Simpan Data'}</button>
             </form>
           </div>
         </div>
