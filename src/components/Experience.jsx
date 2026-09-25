@@ -100,21 +100,19 @@ const Experience = () => {
       if (diff < -Math.floor(totalExp / 2)) diff += totalExp;
     }
 
-    const xOffset = isMobile ? 100 : 180; // Jarak horizontal
-    const yOffset = isMobile ? 15 : 30;   // Jarak melengkung ke bawah
-    const rotateBase = isMobile ? 8 : 12; // Kemiringan
+    // MODIFIKASI: xOffset diperlebar untuk desktop agar penyebarannya pas dengan ukuran kartu yang baru
+    const xOffset = isMobile ? 110 : 300; 
+    const yOffset = isMobile ? 15 : 40;   
+    const rotateBase = isMobile ? 8 : 12; 
 
     if (diff === 0) {
-      // Kartu Tengah (Aktif)
       return { x: 0, y: 0, scale: 1, zIndex: 10, rotateZ: 0, opacity: 1, filter: 'brightness(100%)' };
     } else if (diff === 1) {
-      // Kartu Kanan
-      return { x: xOffset, y: yOffset, scale: 0.85, zIndex: 5, rotateZ: rotateBase, opacity: 0.5, filter: 'brightness(30%)' };
+      // MODIFIKASI: Opacity dinaikkan dari 0.5 menjadi 0.85 agar tidak menembus background secara berlebihan
+      return { x: xOffset, y: yOffset, scale: 0.85, zIndex: 5, rotateZ: rotateBase, opacity: 0.85, filter: 'brightness(45%)' };
     } else if (diff === -1) {
-      // Kartu Kiri
-      return { x: -xOffset, y: yOffset, scale: 0.85, zIndex: 5, rotateZ: -rotateBase, opacity: 0.5, filter: 'brightness(30%)' };
+      return { x: -xOffset, y: yOffset, scale: 0.85, zIndex: 5, rotateZ: -rotateBase, opacity: 0.85, filter: 'brightness(45%)' };
     } else {
-      // Kartu Sembunyi di Belakang
       return { x: diff > 0 ? xOffset * 1.5 : -xOffset * 1.5, y: yOffset * 2, scale: 0.6, zIndex: 1, rotateZ: diff > 0 ? rotateBase * 2 : -rotateBase * 2, opacity: 0, filter: 'brightness(10%)' };
     }
   };
@@ -199,9 +197,10 @@ const Experience = () => {
               <div className="flex flex-col items-center">
                 
                 {/* WADAH KORSEL MELINGKAR */}
-                <div className="relative w-full h-[260px] md:h-[340px] flex items-center justify-center perspective-[1000px]">
+                {/* MODIFIKASI: Tinggi container ditambah untuk desktop (md:h-[450px]) */}
+                <div className="relative w-full h-[260px] md:h-[450px] flex items-center justify-center perspective-[1000px]">
                   {/* Cahaya Latar Belakang */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[350px] md:h-[350px] bg-[#143DED] blur-[100px] opacity-20 pointer-events-none rounded-full"></div>
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[450px] md:h-[450px] bg-[#143DED] blur-[100px] opacity-20 pointer-events-none rounded-full"></div>
 
                   {experiences.map((item, index) => {
                     const styles = getCardStyles(index);
@@ -218,20 +217,22 @@ const Experience = () => {
                         initial={false}
                         animate={styles}
                         transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
-                        className={`absolute w-[180px] h-[240px] md:w-[220px] md:h-[300px] rounded-3xl overflow-hidden border ${isActive ? 'border-[#143DED]/40 cursor-grab active:cursor-grabbing shadow-[0_20px_50px_rgba(20,61,237,0.3)] bg-gradient-to-b from-white/[0.05] to-[#143DED]/10' : 'border-white/5 cursor-pointer shadow-lg bg-[#05070D]'}`}
+                        // MODIFIKASI: Ukuran kartu desktop dirombak menjadi besar (md:w-[280px] md:h-[380px]), background inactive lebih solid (bg-[#080D18])
+                        className={`absolute w-[180px] h-[240px] md:w-[280px] md:h-[380px] rounded-3xl overflow-hidden border ${isActive ? 'border-[#143DED]/50 cursor-grab active:cursor-grabbing shadow-[0_20px_50px_rgba(20,61,237,0.3)] bg-gradient-to-b from-white/[0.08] to-[#143DED]/15 backdrop-blur-md' : 'border-white/10 cursor-pointer shadow-lg bg-[#080D18] backdrop-blur-md'}`}
                       >
-                        <div className="p-6 flex flex-col items-center text-center h-full justify-center">
+                        {/* MODIFIKASI: Padding & ukuran isi disesuaikan dengan kartu yang membesar */}
+                        <div className="p-5 md:p-8 flex flex-col items-center text-center h-full justify-center">
                           {item.logo ? (
-                            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white/5 border border-white/10 p-2 mb-4 flex items-center justify-center shadow-md">
+                            <div className="w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-white/[0.03] border border-white/10 p-2 md:p-3 mb-5 flex items-center justify-center shadow-md">
                               <img src={item.logo} alt={item.title} className="w-full h-full object-contain" draggable="false" />
                             </div>
                           ) : (
-                            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white/5 border border-white/10 mb-4 flex items-center justify-center shadow-md">
-                              <span className="text-2xl font-bold text-[#143DED]">{item.title.charAt(0)}</span>
+                            <div className="w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-white/[0.03] border border-white/10 mb-5 flex items-center justify-center shadow-md">
+                              <span className="text-2xl md:text-4xl font-bold text-[#143DED]">{item.title.charAt(0)}</span>
                             </div>
                           )}
-                          <h3 className="font-heading text-base md:text-lg font-bold text-white mb-1 leading-tight">{item.title}</h3>
-                          <p className="font-body text-[10px] md:text-xs text-[#143DED] uppercase tracking-widest">{item.year}</p>
+                          <h3 className="font-heading text-base md:text-xl font-bold text-white mb-2 leading-tight">{item.title}</h3>
+                          <p className="font-body text-[10px] md:text-sm text-[#143DED] uppercase tracking-widest">{item.year}</p>
                         </div>
                       </motion.div>
                     );
