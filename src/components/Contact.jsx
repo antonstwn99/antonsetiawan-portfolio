@@ -145,9 +145,15 @@ const Contact = () => {
             alt="Anton Setiawan Logo" 
             className="w-10 h-10 rounded-xl border border-white/10 opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
           />
-          <p className="font-body text-xs text-white/50">
-            © 2026 Anton Setiawan. All rights reserved.
-          </p>
+          <div className="flex items-center gap-2">
+            <p className="font-body text-xs text-white/50">
+              © {new Date().getFullYear()} Anton Setiawan. All rights reserved.
+            </p>
+            <span className="text-white/20">•</span>
+            <a href="/admin" className="font-body text-[10px] uppercase tracking-widest text-white/30 hover:text-[#143DED] transition-colors outline-none">
+              CMS
+            </a>
+          </div>
         </div>
         <ul className="flex flex-wrap justify-center gap-6 md:gap-8 font-body text-xs text-white/70">
           {[
