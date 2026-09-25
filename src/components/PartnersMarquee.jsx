@@ -41,17 +41,16 @@ const PartnersMarquee = () => {
               key={`${item.id}-${index}`}
               className="flex items-center gap-3 px-5 py-2.5 rounded-full border border-white/5 bg-white/[0.015] hover:bg-white/[0.05] hover:border-[#143DED]/40 transition-all duration-300 group cursor-default"
             >
-              {/* Bagian Ikon Kiri: Logo (jika ada) ATAU Titik Biru (jika tidak ada logo) */}
+              {/* Bagian Ikon Kiri: Logo Bersih (jika ada) ATAU Titik Biru (jika tidak ada logo) */}
               {item.logo ? (
-                <div className="w-6 h-6 md:w-7 md:h-7 shrink-0 rounded-md overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center p-1 group-hover:border-[#143DED]/50 transition-colors">
-                  <img
+                 <img
                     src={item.logo}
                     alt={item.name}
-                    className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity"
-                  />
-                </div>
+                    // Menghilangkan kotak, menggunakan ukuran fixed, dan memberikan efek filter natural
+                    className="h-6 w-auto md:h-7 object-contain opacity-50 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300 shrink-0"
+                 />
               ) : (
-                <div className="w-1.5 h-1.5 rounded-full bg-[#143DED]/60 group-hover:bg-[#143DED] group-hover:shadow-[0_0_8px_#143DED] transition-all"></div>
+                <div className="w-1.5 h-1.5 shrink-0 rounded-full bg-[#143DED]/60 group-hover:bg-[#143DED] group-hover:shadow-[0_0_8px_#143DED] transition-all"></div>
               )}
               
               {/* Bagian Teks Kanan: Akan selalu muncul! */}
