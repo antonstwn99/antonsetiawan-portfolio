@@ -1,47 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Code2,
-  Terminal,
-  PenTool,
-  BrainCircuit,
-  Video,
-  Box,
-} from 'lucide-react';
+import * as LucideIcons from 'lucide-react'; // Import seluruh ikon untuk render dinamis
+import { supabase } from '../lib/supabase'; // Import database
 
 const Capabilities = () => {
-  const skills = [
-    {
-      id: 1,
-      label: 'Web & App\nDevelopment',
-      icon: <Code2 strokeWidth={1.5} size={24} />,
-    },
-    {
-      id: 2,
-      label: 'UI/UX &\nGraphic Design',
-      icon: <PenTool strokeWidth={1.5} size={24} />,
-    },
-    {
-      id: 3,
-      label: 'Video Directing\n& Animation',
-      icon: <Video strokeWidth={1.5} size={24} />,
-    },
-    {
-      id: 4,
-      label: 'Social Media\nBranding',
-      icon: <Terminal strokeWidth={1.5} size={24} />,
-    },
-    {
-      id: 5,
-      label: 'Game & AR Dev\n(Unity)',
-      icon: <Box strokeWidth={1.5} size={24} />,
-    },
-    {
-      id: 6,
-      label: 'AI Prompt\nEngineering',
-      icon: <BrainCircuit strokeWidth={1.5} size={24} />,
-    },
-  ];
+  const [capabilities, setCapabilities] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCapabilities = async () => {
+      const { data } = await supabase
+        .from('capabilities')
+        .select('*')
+        .order('id', { ascending: true });
+      
+      if (data) setCapabilities(data);
+      setIsLoading(false);
+    };
+    fetchCapabilities();
+  }, []);
 
   return (
     <section id="capabilities" className="py-12 px-6 md:px-16 overflow-hidden">
@@ -86,23 +63,32 @@ const Capabilities = () => {
           }}
           className="w-full xl:w-[78%] grid grid-cols-2 sm:grid-cols-3 xl:flex xl:flex-row gap-3 sm:gap-4 xl:gap-12 items-stretch xl:items-center xl:overflow-x-auto hide-scrollbar"
         >
-          {skills.map((skill) => (
-            <motion.div
-              key={skill.id}
-              variants={{
-                hidden: { opacity: 0, y: 15 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } }
-              }}
-              className="flex flex-col items-start justify-between gap-3 p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-[#143DED]/40 hover:bg-white/[0.04] xl:p-0 xl:bg-transparent xl:border-none transition-all duration-300 cursor-pointer group"
-            >
-              <div className="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl border border-white/10 bg-[#05070D] flex items-center justify-center text-white/60 group-hover:text-[#143DED] group-hover:border-[#143DED]/50 transition-all duration-300 shadow-[0_4px_16px_rgba(0,0,0,0.3)]">
-                {skill.icon}
-              </div>
-              <p className="font-body text-xs sm:text-sm font-medium text-white/90 whitespace-pre-line leading-snug group-hover:text-white transition-colors">
-                {skill.label}
-              </p>
-            </motion.div>
-          ))}
+          {isLoading ? (
+            <div className="w-full h-24 bg-white/5 animate-pulse rounded-2xl"></div>
+          ) : (
+            capabilities.map((skill) => {
+              // Mengambil ikon yang sesuai dengan teks dari database, fallback ke ikon HelpCircle jika typo
+              const IconComponent = LucideIcons[skill.icon] || LucideIcons.HelpCircle;
+              
+              return (
+                <motion.div
+                  key={skill.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 15 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } }
+                  }}
+                  className="flex flex-col items-start justify-between gap-3 p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-[#143DED]/40 hover:bg-white/[0.04] xl:p-0 xl:bg-transparent xl:border-none transition-all duration-300 cursor-pointer group"
+                >
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl border border-white/10 bg-[#05070D] flex items-center justify-center text-white/60 group-hover:text-[#143DED] group-hover:border-[#143DED]/50 transition-all duration-300 shadow-[0_4px_16px_rgba(0,0,0,0.3)]">
+                    <IconComponent strokeWidth={1.5} size={24} />
+                  </div>
+                  <p className="font-body text-xs sm:text-sm font-medium text-white/90 whitespace-pre-line leading-snug group-hover:text-white transition-colors">
+                    {skill.label}
+                  </p>
+                </motion.div>
+              );
+            })
+          )}
 
           {/* Tombol navigasi di Desktop (tetap di ujung kanan) */}
           <motion.div 

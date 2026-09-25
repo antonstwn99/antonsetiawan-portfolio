@@ -7,21 +7,30 @@ const Hero = () => {
   const { scrollY } = useScroll();
   const opacityGrid = useTransform(scrollY, [0, 600], [0.03, 0]);
   
-  // State untuk menyimpan jumlah proyek dari database
-  const [projectCount, setProjectCount] = useState(15); // Angka bawaan sebelum loading
+  // State untuk angka proyek & teks pengaturan
+  const [projectCount, setProjectCount] = useState(15);
+  const [settings, setSettings] = useState({
+    hero_name: 'Anton Setiawan',
+    hero_desc: 'Saya merancang dan membangun ekosistem digital. Memadukan estetika desain visual, logika rekayasa perangkat lunak, dan strategi multimedia untuk menciptakan solusi teknologi yang terukur dan berdampak nyata.'
+  });
 
   useEffect(() => {
-    const fetchProjectCount = async () => {
-      // Mengambil hanya angka 'count' tanpa mendownload isi datanya (sangat ringan & cepat)
-      const { count, error } = await supabase
+    const fetchData = async () => {
+      // 1. Ambil jumlah proyek
+      const { count } = await supabase
         .from('projects')
         .select('*', { count: 'exact', head: true });
-        
-      if (!error && count !== null) {
-        setProjectCount(count);
-      }
+      if (count !== null) setProjectCount(count);
+
+      // 2. Ambil teks pengaturan Hero
+      const { data: settingsData } = await supabase
+        .from('site_settings')
+        .select('hero_name, hero_desc')
+        .eq('id', 1)
+        .single();
+      if (settingsData) setSettings(settingsData);
     };
-    fetchProjectCount();
+    fetchData();
   }, []);
 
   return (
@@ -38,12 +47,24 @@ const Hero = () => {
           <span className="font-body text-[#143DED] text-xs font-semibold tracking-widest uppercase border border-[#143DED]/30 px-3 py-1.5 rounded-full backdrop-blur-sm">Multimedia Engineer & Strategist</span>
         </motion.div>
 
-        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="font-heading text-[3.5rem] sm:text-6xl md:text-[7.5rem] font-bold leading-[0.9] tracking-tight mb-6 md:mb-8 text-white">
-          Anton<br />Setiawan<span className="text-[#143DED]">.</span>
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="font-heading text-[3.5rem] sm:text-6xl md:text-[7.5rem] font-bold leading-[0.9] tracking-tight mb-6 md:mb-8 text-white"
+        >
+          {settings.hero_name.split(' ')[0]}
+          <br />
+          {settings.hero_name.split(' ').slice(1).join(' ')}<span className="text-[#143DED]">.</span>
         </motion.h1>
 
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }} className="font-body text-white/70 text-sm md:text-base max-w-[460px] mb-10 leading-relaxed font-normal">
-          Saya merancang dan membangun ekosistem digital. Memadukan estetika desain visual, logika rekayasa perangkat lunak, dan strategi multimedia untuk menciptakan solusi teknologi yang terukur dan berdampak nyata.
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="font-body text-white/70 text-sm md:text-base max-w-[460px] mb-10 leading-relaxed font-normal"
+        >
+          {settings.hero_desc}
         </motion.p>
 
         <motion.a initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} href="#work" className="group flex items-center w-fit gap-4 bg-transparent border border-white/20 hover:border-white/50 pl-2 pr-6 py-2 rounded-full transition-all duration-300 mb-10 outline-none">

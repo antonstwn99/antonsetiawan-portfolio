@@ -1,15 +1,36 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import antonLogo from '../assets/anton/anton-logo.png';
+import { supabase } from '../lib/supabase'; // Import database
 
 const Contact = () => {
   const [isCopied, setIsCopied] = useState(false);
   const copyTimeoutRef = useRef(null);
+  
+  // State untuk menyimpan data link dari Supabase
+  const [settings, setSettings] = useState({
+    email: 'antonstwn604@gmail.com',
+    instagram: 'https://instagram.com/antonstwn__',
+    whatsapp: 'https://wa.me/6281645483272',
+    linkedin: 'https://linkedin.com/in/antonsetiawan'
+  });
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      const { data } = await supabase
+        .from('site_settings')
+        .select('email, instagram, whatsapp, linkedin')
+        .eq('id', 1)
+        .single();
+      if (data) setSettings(data);
+    };
+    fetchSettings();
+  }, []);
 
   const handleCopyEmail = async (e) => {
     e.preventDefault();
     try {
-      await navigator.clipboard.writeText('antonstwn604@gmail.com');
+      await navigator.clipboard.writeText(settings.email);
       setIsCopied(true);
       
       if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
@@ -88,7 +109,7 @@ const Contact = () => {
                 )}
               </button>
               <a
-                href="https://instagram.com/antonstwn__"
+                href={settings.instagram}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 text-white/70 hover:text-white transition-colors group"
@@ -110,10 +131,34 @@ const Contact = () => {
                   <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
                 </svg>
               </a>
+              {/* Tombol LinkedIn Tambahan */}
+              <a
+                href={settings.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-white/70 hover:text-white transition-colors group"
+                title="LinkedIn"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="group-hover:stroke-[#143DED] transition-colors"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
             </div>
 
             <a
-              href="https://wa.me/6281645483272?text=Halo%20Anton,%20saya%20melihat%20portfolio%20Anda%20dan%20tertarik%20untuk%20berdiskusi%20lebih%20lanjut."
+              href={settings.whatsapp}
               target="_blank"
               rel="noreferrer"
               className="flex items-center w-fit gap-3 bg-[#25D366] hover:bg-white hover:text-[#05070D] transition-all duration-300 text-white rounded-full px-6 py-3 shadow-[0_0_20px_rgba(37,211,102,0.2)] group"

@@ -20,18 +20,33 @@ useGLTF.preload(mascotGlb);
 
 const About = () => {
   const [skills, setSkills] = useState([]);
+  const [settings, setSettings] = useState({
+    about_desc: 'Memuat deskripsi...',
+    hard_skills: [],
+    soft_skills: []
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchSkills = async () => {
-      const { data } = await supabase
+    const fetchData = async () => {
+      // 1. Ambil data metrik bar (persentase)
+      const { data: skillsData } = await supabase
         .from('skills')
         .select('*')
         .order('id', { ascending: true });
-      if (data) setSkills(data);
+      if (skillsData) setSkills(skillsData);
+
+      // 2. Ambil data teks deskripsi dan label dari site_settings
+      const { data: settingsData } = await supabase
+        .from('site_settings')
+        .select('about_desc, hard_skills, soft_skills')
+        .eq('id', 1)
+        .single();
+      if (settingsData) setSettings(settingsData);
+
       setIsLoading(false);
     };
-    fetchSkills();
+    fetchData();
   }, []);
 
   return (
@@ -45,28 +60,33 @@ const About = () => {
         <h2 className="font-heading text-4xl md:text-5xl font-bold leading-[1.1] text-white mb-6">
           I blend <span className="text-[#143DED]">creativity</span><br />with technology<span className="text-[#143DED]">.</span>
         </h2>
-        <p className="font-body text-white/70 text-sm md:text-base mb-8 leading-relaxed">
-          Sebagai mahasiswa Teknologi Rekayasa Multimedia di Politeknik Hasnur, saya memposisikan diri di persimpangan antara seni dan kode. Saya berfokus pada perancangan produk end-to-end, memastikan setiap piksel memiliki tujuan dan setiap baris program memberikan performa optimal.
+        <p className="font-body text-white/70 text-sm md:text-base mb-8 leading-relaxed whitespace-pre-line">
+          {settings.about_desc}
         </p>
 
-        {/* Hard & Soft Skills Labels */}
+        {/* Hard & Soft Skills Labels Dinamis */}
         <div className="mb-8 w-full">
-          <div className="mb-5">
-            <h4 className="font-body text-[10px] text-[#143DED] font-bold uppercase tracking-widest mb-3">Hard Skills & Tools</h4>
-            <div className="flex flex-wrap gap-2">
-              {['Visual Design', 'Brand Identity', 'Social Media Management', 'Content Plan & Strategy', 'Web Development', 'App Development', 'Game Development', 'Data Analytics', 'Video Production', '3D & Animation', 'Augmented Reality', 'AI Prompting', 'Data Management', 'IT Support', 'Canva & Figma', 'Unity'].map((skill) => (
-                <span key={skill} className="text-[10px] sm:text-xs font-medium bg-[#143DED]/10 text-[#143DED] px-3 py-1.5 rounded-md border border-[#143DED]/20">{skill}</span>
-              ))}
+          {settings.hard_skills && settings.hard_skills.length > 0 && (
+            <div className="mb-5">
+              <h4 className="font-body text-[10px] text-[#143DED] font-bold uppercase tracking-widest mb-3">Hard Skills & Tools</h4>
+              <div className="flex flex-wrap gap-2">
+                {settings.hard_skills.map((skill, index) => (
+                  <span key={index} className="text-[10px] sm:text-xs font-medium bg-[#143DED]/10 text-[#143DED] px-3 py-1.5 rounded-md border border-[#143DED]/20">{skill}</span>
+                ))}
+              </div>
             </div>
-          </div>
-          <div>
-            <h4 className="font-body text-[10px] text-white/50 uppercase tracking-widest mb-3">Soft Skills</h4>
-            <div className="flex flex-wrap gap-2">
-              {['Communication', 'Professional Ethics', 'Public Speaking', 'Problem Solving', 'Critical Thinking', 'Teamwork', 'Adaptability', 'Task Management', 'Creative Thinking'].map((skill) => (
-                <span key={skill} className="text-[10px] sm:text-xs font-medium bg-white/5 text-white/80 px-3 py-1.5 rounded-md border border-white/10">{skill}</span>
-              ))}
+          )}
+          
+          {settings.soft_skills && settings.soft_skills.length > 0 && (
+            <div>
+              <h4 className="font-body text-[10px] text-white/50 uppercase tracking-widest mb-3">Soft Skills</h4>
+              <div className="flex flex-wrap gap-2">
+                {settings.soft_skills.map((skill, index) => (
+                  <span key={index} className="text-[10px] sm:text-xs font-medium bg-white/5 text-white/80 px-3 py-1.5 rounded-md border border-white/10">{skill}</span>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         <a href="#experience" className="group flex items-center w-fit gap-4 bg-transparent border border-white/20 hover:border-white/50 pl-6 pr-2 py-2 rounded-full transition-all duration-300">
